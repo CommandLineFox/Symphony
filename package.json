@@ -1,0 +1,28 @@
+{
+  "name": "eevee",
+  "version": "1.0.0",
+  "description": "Music bot by Alex",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexArcticFox/Eevee.git"
+  },
+  "author": "Alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexArcticFox/Eevee/issues"
+  },
+  "homepage": "https://github.com/AlexArcticFox/Eevee#readme",
+  "devDependencies": {
+    "@types/node": "^12.12.3",
+    "tslint": "^5.20.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
