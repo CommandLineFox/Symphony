@@ -44,12 +44,12 @@ export default abstract class Command implements CommandOptions {
         if (event.isFromGuild) {
             const missingBotPermission = event.textChannel!.permissionsFor(event.guild.me)!.missing(this.botPermissions);
             if (!missingBotPermission) {
-                event.reply(' I am not allowed to run this command.')
+                event.reply(' I am not allowed to run this command.');
                 return;
             }
             const missingUserPermission = event.textChannel!.permissionsFor(event.member)!.missing(this.userPermissions);
             if (!missingUserPermission) {
-                event.reply(' You are not allowed to run this command.')
+                event.reply(' You are not allowed to run this command.');
                 return;
             }
         }

@@ -1,4 +1,4 @@
-import { Client, ClientOptions, User } from "discord.js";
+import { Client, ClientOptions, User, Guild } from "discord.js";
 
 export default class EeveeClient extends Client {
     constructor(options?: ClientOptions) {
@@ -6,6 +6,11 @@ export default class EeveeClient extends Client {
     }
 
     isOwner(user: User) {
-        return user.id === '399624330268508162'
+        return user.id === '399624330268508162';
+    }
+    
+    getPrefix(guild?: Guild): string {
+        const prefix = "";
+        return prefix;
     }
 }
