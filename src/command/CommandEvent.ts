@@ -15,13 +15,13 @@ export default class CommandEvent {
     constructor (message: Message, client: EeveeClient, argument: string) {
         this.message = message;
         this.client = client;
-        this.author = message.author
+        this.author = message.author;
         this.argument = argument;
         this.channel = message.channel;
         this.isFromGuild = this.channel.type === "text";
         this.textChannel = this.channel instanceof TextChannel ? this.channel : undefined;
         this.guild = message.guild;
-        this.member = message.member
+        this.member = message.member;
     }
 
     send(content?: StringResolvable, options?: MessageOptions | Attachment | RichEmbed): Promise <Message | Message[]> {

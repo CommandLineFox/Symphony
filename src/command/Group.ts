@@ -21,7 +21,7 @@ export default class Group implements GroupOptions {
         this.guildOnly = options.guildOnly || false;
     }
 
-    private _commands: ReadonlyArray<Command> | undefined
+    private _commands: ReadonlyArray<Command> | undefined;
 
     get commands(): ReadonlyArray<Command> {
         return this._commands || (this._commands = CommandRegistry.getCommands(this));

@@ -54,7 +54,7 @@ export default abstract class Command implements CommandOptions {
             }
         }
 
-        this.run(event)
+        this.run(event);
     }
 
     protected abstract run(event: CommandEvent) : void;
