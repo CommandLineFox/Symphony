@@ -16,6 +16,4 @@ class CommandRegistry {
     }
 }
 
-const commandRegistry = new CommandRegistry ();
-
-export default commandRegistry;
+export default new CommandRegistry();

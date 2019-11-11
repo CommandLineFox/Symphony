@@ -1,5 +1,7 @@
 import EeveeClient from "../EeveeClient";
+import CommandRegistry from "../command/CommandRegistry";
 import { Message } from "discord.js";
+import CommandEvent from "./CommandEvent";
 
 export default class CommandHandler {
     private readonly client: EeveeClient;
@@ -29,7 +31,18 @@ export default class CommandHandler {
     }
 
     private handlePrefix(message: Message, content: string) {
-        
+        if (content.length === 0) {
+            return;
+        }
+
+        const [trigger, args = ""] = content.split(/\s+([\s\S]+)/);
+        const command = CommandRegistry.getCommand(trigger);
+
+        if (command === undefined) {
+            return;
+        }
+
+        command.execute(new CommandEvent(message, this.client, args));
     }
 
     private handleMention(message: Message, content: string) {

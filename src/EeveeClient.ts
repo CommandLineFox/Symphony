@@ -1,8 +1,11 @@
 import { Client, ClientOptions, User, Guild } from "discord.js";
 
 export default class EeveeClient extends Client {
-    constructor(options?: ClientOptions) {
+    readonly config: object
+
+    constructor(config: object, options?: ClientOptions) {
         super(options);
+        this.config = config;
     }
 
     isOwner(user: User) {
