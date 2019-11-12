@@ -1,7 +1,7 @@
 import { Client, ClientOptions, User, Guild } from "discord.js";
 
 export default class EeveeClient extends Client {
-    readonly config: object
+    readonly config: object;
 
     constructor(config: object, options?: ClientOptions) {
         super(options);

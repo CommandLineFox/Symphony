@@ -1,20 +1,25 @@
 import * as fs from "fs";
-import Config from "./Config";
-import { generateConfig, checkConfig } from "./ConfigHandler";
+import configTemplate from "./Config";
+import { generateConfig, getConfig } from "./ConfigHandler";
+import EeveeClient from "./EeveeClient";
 
 function main() {
-    if(!fs.existsSync("config.json")) {
-        generateConfig("config.json", Config);
+    const configFile = "config.json";
+
+    if(!fs.existsSync(configFile)) {
+        generateConfig(configFile, configTemplate);
         console.warn("Generated config");
         console.info("Please edit the config before restarting the bot");
         return;
     }
 
-    const config = JSON.parse(fs.readFileSync("config.json").toString());
+    const config = getConfig(configFile, configTemplate);
 
-    if(!checkConfig(config, Config)) {
+    if(!config) {
         console.warn("Failed to read config");
         console.info("Please use the above errors to fix your config before restarting the bot");
         return;
     }
+
+    const client = new EeveeClient(config);
 }

@@ -9,6 +9,8 @@ export interface IFunction <T> extends IFunctionBase <T> {
     readonly defaultValue: T;
 }
 
+type IFunctionType <T> = T extends IFunction <infer U> ? U : never;
+
 function createBaseType <T> (trueName: string, check: (value: any, key: string) => boolean | string[]): IFunctionBase <T> {
     function temp(value: any, key: string) {
         return check(value, key)
@@ -23,11 +25,7 @@ function createType <T> (trueName: string, defaultValue: T, check: (value: any, 
     return temp;
 }
 
-function checkObject(object: {
-    [key: string]: any
-}, template: {
-    [key: string]: IFunction <any>
-}, name = "") {
+function checkObject(object: { [key: string]: any }, template: { [key: string]: IFunction <any> }, name = "") {
     const errors = [];
 
     for (const key in template) {
@@ -36,7 +34,7 @@ function checkObject(object: {
         const result = check(object[key], name + key);
         if (result instanceof Array) {
             errors.push(...result);
-        } 
+        }
         else if (!result) {
             if (object[key] === undefined) {
                 errors.push(`${name}${key} does not not exists and must have the type of ${template[key].trueName}`);
@@ -76,9 +74,7 @@ export function array <T> (type: IFunctionBase <T> , defaultValue: T[] = []) {
     return createType(type.trueName + "[]", defaultValue, (value: any, key: string) => value instanceof Array && value.every((it) => type(it, key) === true));
 }
 
-export function object(template: {
-    [key: string]: IFunction <any>
-}) {
+export function object(template: { [key: string]: IFunction <any> }) {
     const defaultValue: {
         [key: string]: any
     } = {};
@@ -103,9 +99,7 @@ export function object(template: {
     })
 }
 
-export function generateConfig(file: string, template: {
-    [key: string]: IFunction <any>
-}) {
+export function generateConfig(file: string, template: { [key: string]: IFunction <any> }) {
     const config: {
         [key: string]: any
     } = {};
@@ -117,18 +111,15 @@ export function generateConfig(file: string, template: {
     fs.writeFileSync(file, JSON.stringify(config));
 }
 
-export function checkConfig(config: {
-    [key: string]: any
-}, template: {
-    [key: string]: IFunction <any>
-}) {
+export function getConfig <T extends { [key: string]: IFunction <any> }> (file: string, template: T) {
+    const config = JSON.parse(fs.readFileSync(file).toString());
     const errors = checkObject(config, template);
 
     if (errors.length === 0) {
-        return true;
+        return config as { [key in keyof T]: IFunctionType <T[key]> }
     }
     else {
         errors.forEach((error) => console.error(error));
-        return false;
+        return undefined;
     }
 }
