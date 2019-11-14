@@ -20,6 +20,9 @@ export default class EeveeClient extends Client {
     }
     
     getPrefix(guild?: Guild): string {
+        if (guild) {
+            
+        }
         return this.config.prefix;
     }
 }

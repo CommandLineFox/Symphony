@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Echo_1 = __importDefault(require("../commands/Basic/Echo"));
+const Echo_1 = require("../commands/Basic/Echo");
 class CommandRegistry {
     constructor() {
         this.commands = [

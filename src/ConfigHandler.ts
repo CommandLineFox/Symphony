@@ -1,17 +1,17 @@
 import * as fs from "fs";
 
-interface IFunctionBase <T> {
+interface IFunctionBase {
     (value: any, key: string): boolean | string[];
     readonly trueName: string,
 }
 
-export interface IFunction <T> extends IFunctionBase <T> {
+export interface IFunction <T> extends IFunctionBase {
     readonly defaultValue: T;
 }
 
 export type IFunctionType <T> = T extends IFunction <infer U> ? U : never;
 
-function createBaseType <T> (trueName: string, check: (value: any, key: string) => boolean | string[]): IFunctionBase <T> {
+function createBaseType (trueName: string, check: (value: any, key: string) => boolean | string[]): IFunctionBase {
     function temp(value: any, key: string) {
         return check(value, key)
     }
@@ -66,11 +66,11 @@ export function string(defaultValue: string) {
     return createType(base.string.trueName, defaultValue, base.string);
 }
 
-export function optional <T> (type: IFunctionBase <T> , defaultValue ? : T | null) {
+export function optional <T> (type: IFunctionBase, defaultValue ? : T | null) {
     return createType(type.trueName + "?", defaultValue, (value: any, key: string) => value === undefined || value === null || type(value, key));
 }
 
-export function array <T> (type: IFunctionBase <T> , defaultValue: T[] = []) {
+export function array <T> (type: IFunctionBase, defaultValue: T[] = []) {
     return createType(type.trueName + "[]", defaultValue, (value: any, key: string) => value instanceof Array && value.every((it) => type(it, key) === true));
 }
 
