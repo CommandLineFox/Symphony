@@ -9,7 +9,7 @@ export interface IFunction <T> extends IFunctionBase <T> {
     readonly defaultValue: T;
 }
 
-type IFunctionType <T> = T extends IFunction <infer U> ? U : never;
+export type IFunctionType <T> = T extends IFunction <infer U> ? U : never;
 
 function createBaseType <T> (trueName: string, check: (value: any, key: string) => boolean | string[]): IFunctionBase <T> {
     function temp(value: any, key: string) {

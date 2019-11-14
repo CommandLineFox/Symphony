@@ -1,19 +1,25 @@
 import { Client, ClientOptions, User, Guild } from "discord.js";
+import configTemplate from "./Config";
+import { IFunctionType } from "./ConfigHandler";
+import CommandHandler from "./command/CommandHandler"
+type configTemplate = typeof configTemplate
 
 export default class EeveeClient extends Client {
-    readonly config: object;
+    readonly config: { [key in keyof configTemplate]: IFunctionType<configTemplate[key]> };
 
-    constructor(config: object, options?: ClientOptions) {
+    constructor(config: { [key in keyof configTemplate]: IFunctionType<configTemplate[key]> }, options?: ClientOptions) {
         super(options);
         this.config = config;
+        this.once("ready", () => {
+            new CommandHandler (this)
+        });
     }
 
-    isOwner(user: User) {
-        return user.id === '399624330268508162';
+    isOwner(user: User): boolean {
+        return this.config.owners.includes(user.id);
     }
     
     getPrefix(guild?: Guild): string {
-        const prefix = "";
-        return prefix;
+        return this.config.prefix;
     }
 }

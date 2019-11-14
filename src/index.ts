@@ -22,4 +22,11 @@ function main() {
     }
 
     const client = new EeveeClient(config);
+    client.login(config.token);
+    
+    client.on("ready", () => {
+        console.log(`Logged in as ${client.user.tag}`);
+    })
 }
+
+main();

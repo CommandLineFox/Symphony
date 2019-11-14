@@ -1,9 +1,10 @@
 import Command from "./Command";
 import Group from "./Group";
+import Echo from "../commands/Basic/Echo";
 
 class CommandRegistry {
     readonly commands: ReadonlyArray<Command> = [
-        // TODO: Add commands
+        new Echo()
     ];
     readonly groups: ReadonlyArray<Group> = this.commands.map((command) => command.group).filter((group, index, self) => self.indexOf(group) === index);
 

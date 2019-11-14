@@ -10,7 +10,9 @@ export default class CommandHandler {
     constructor (client: EeveeClient) {
         this.client = client;
         this.mentions = [ `<@${this.client.user.id}>`, `<@!${this.client.user.id}>` ];
-        client.on("message", this.handleMessage);
+        client.on("message", (message) => {
+            this.handleMessage(message);
+        });
     }
 
     private handleMessage(message: Message) {

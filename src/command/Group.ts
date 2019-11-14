@@ -14,7 +14,7 @@ export default class Group implements GroupOptions {
     readonly ownerOnly: boolean;
     readonly guildOnly: boolean;
     
-    protected constructor (options: GroupOptions) {
+    constructor (options: GroupOptions) {
         this.name = options.name;
         this.description = options.description;
         this.ownerOnly = options.ownerOnly || false;
