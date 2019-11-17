@@ -13,7 +13,6 @@ export default class Database {
     
     public static async getClient(config: IFunctionResult<typeof configTemplate>) {
         const { username, password, authenticationDatabase, shards } = config.database;
-
         function mongoUrlEncoder(str: string) {
             return str.replace(/@/g, "%40")
                       .replace(/:/g, "%3A")
