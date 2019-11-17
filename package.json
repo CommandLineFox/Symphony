@@ -1,5 +1,5 @@
 {
-  "name": "eevee",
+  "name": "symphony",
   "version": "1.0.0",
   "description": "Music bot by Alex",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexArcticFox/Eevee.git"
+    "url": "git+https://github.com/AlexArcticFox/Symphony.git"
   },
   "author": "Alex",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AlexArcticFox/Eevee/issues"
+    "url": "https://github.com/AlexArcticFox/Symphony/issues"
   },
-  "homepage": "https://github.com/AlexArcticFox/Eevee#readme",
+  "homepage": "https://github.com/AlexArcticFox/Symphony#readme",
   "devDependencies": {
     "@types/node": "^12.12.3",
     "tslint": "^5.20.0",
