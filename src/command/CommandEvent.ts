@@ -1,9 +1,9 @@
 import { Message, StringResolvable, MessageOptions, Attachment, RichEmbed, TextChannel, DMChannel, GroupDMChannel, User, Guild, GuildMember } from "discord.js";
-import EeveeClient from "../EeveeClient";
+import SymphonyClient from "../SymphonyClient";
 
 export default class CommandEvent {
     readonly message: Message;
-    readonly client: EeveeClient;
+    readonly client: SymphonyClient;
     readonly author: User;
     readonly argument: string;
     readonly channel: TextChannel | DMChannel | GroupDMChannel;
@@ -12,7 +12,7 @@ export default class CommandEvent {
     readonly guild: Guild;
     readonly member: GuildMember;
 
-    constructor (message: Message, client: EeveeClient, argument: string) {
+    constructor (message: Message, client: SymphonyClient, argument: string) {
         this.message = message;
         this.client = client;
         this.author = message.author;

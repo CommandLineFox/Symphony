@@ -5,7 +5,7 @@ interface IFunctionBase {
     readonly theName: string,
 }
 
-interface IFunction <T> {
+export interface IFunction <T> {
     (value: any, key: string): boolean | string[];
     readonly trueName: string,
     readonly defaultValue: T;

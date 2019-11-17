@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const Config_1 = require("./Config");
 const ConfigHandler_1 = require("./ConfigHandler");
-const EeveeClient_1 = require("./EeveeClient");
+const SymphonyClient_1 = require("./SymphonyClient");
 function main() {
     const configFile = "config.json";
     if (!fs.existsSync(configFile)) {
@@ -18,7 +18,7 @@ function main() {
         console.info("Please use the above errors to fix your config before restarting the bot");
         return;
     }
-    const client = new EeveeClient_1.default(config);
+    const client = new SymphonyClient_1.default(config);
     client.login(config.token);
     client.on("ready", () => {
         console.log(`Logged in as ${client.user.tag}`);

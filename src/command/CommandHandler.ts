@@ -1,13 +1,13 @@
-import EeveeClient from "../EeveeClient";
+import SymphonyClient from "../SymphonyClient";
 import CommandRegistry from "../command/CommandRegistry";
 import { Message } from "discord.js";
 import CommandEvent from "./CommandEvent";
 
 export default class CommandHandler {
-    private readonly client: EeveeClient;
+    private readonly client: SymphonyClient;
     private mentions: string[];
 
-    constructor (client: EeveeClient) {
+    constructor (client: SymphonyClient) {
         this.client = client;
         this.mentions = [ `<@${this.client.user.id}>`, `<@!${this.client.user.id}>` ];
         client.on("message", (message) => {

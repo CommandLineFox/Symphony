@@ -1,15 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
-function createBaseType(trueName, check) {
+function createBaseType(theName, check) {
+    function temp(value, key) {
+        return check(value, key);
+    }
+    temp.theName = theName;
+    return temp;
+}
+function createType(trueName, defaultValue, check) {
     function temp(value, key) {
         return check(value, key);
     }
     temp.trueName = trueName;
-    return temp;
-}
-function createType(trueName, defaultValue, check) {
-    const temp = createBaseType(trueName, check);
     temp.defaultValue = defaultValue;
     return temp;
 }
@@ -38,25 +41,17 @@ exports.base = {
     string: createBaseType("String", (value) => typeof value === "string"),
 };
 function boolean(defaultValue) {
-    return createType(exports.base.boolean.trueName, defaultValue, exports.base.boolean);
+    return createType(exports.base.boolean.theName, defaultValue, exports.base.boolean);
 }
 exports.boolean = boolean;
 function number(defaultValue) {
-    return createType(exports.base.number.trueName, defaultValue, exports.base.number);
+    return createType(exports.base.number.theName, defaultValue, exports.base.number);
 }
 exports.number = number;
 function string(defaultValue) {
-    return createType(exports.base.string.trueName, defaultValue, exports.base.string);
+    return createType(exports.base.string.theName, defaultValue, exports.base.string);
 }
 exports.string = string;
-function optional(type, defaultValue) {
-    return createType(type.trueName + "?", defaultValue, (value, key) => value === undefined || value === null || type(value, key));
-}
-exports.optional = optional;
-function array(type, defaultValue = []) {
-    return createType(type.trueName + "[]", defaultValue, (value, key) => value instanceof Array && value.every((it) => type(it, key) === true));
-}
-exports.array = array;
 function object(template) {
     const defaultValue = {};
     for (const key in template) {
@@ -78,6 +73,42 @@ function object(template) {
     });
 }
 exports.object = object;
+function optional(type, defaultValue) {
+    return createType(type.theName + "?", defaultValue, (value, key) => value === undefined || value === null || type(value, key));
+}
+exports.optional = optional;
+function optionalObject(template, defaultValue = true) {
+    const templateObject = object(template);
+    return createType(templateObject.trueName + "?", defaultValue ? templateObject.defaultValue : null, (value, key) => value === undefined || value === null || templateObject(value, key));
+}
+exports.optionalObject = optionalObject;
+function arrayWithOptional(type, defaultValue) {
+    return createType(type.theName + "[]", defaultValue, (value, key) => value instanceof Array && value.every((it) => it === undefined || it === null || type(it, key) === true));
+}
+exports.arrayWithOptional = arrayWithOptional;
+function arrayWithOptionalObject(template, defaultValue = true) {
+    const templateObject = object(template);
+    return createType(templateObject.trueName, defaultValue ? [templateObject.defaultValue] : [], (value, key) => value instanceof Array && value.every((it) => it === undefined || it === null || templateObject(it, key) === true));
+}
+exports.arrayWithOptionalObject = arrayWithOptionalObject;
+function array(type, defaultValue = []) {
+    return createType(type.theName + "[]", defaultValue, (value, key) => value instanceof Array && value.every((it) => type(it, key) === true));
+}
+exports.array = array;
+function optionalArray(type, defaultValue = []) {
+    return createType(type.theName + "[]", defaultValue, (value, key) => value === undefined || value === null || value instanceof Array && value.every((it) => type(it, key) === true));
+}
+exports.optionalArray = optionalArray;
+function objectArray(template, defaultValue = true) {
+    const templateObject = object(template);
+    return createType(templateObject.trueName, defaultValue ? [templateObject.defaultValue] : [], (value, key) => value instanceof Array && value.every((it) => templateObject(it, key) === true));
+}
+exports.objectArray = objectArray;
+function optionalObjectArray(template, defaultValue = true) {
+    const templateObject = object(template);
+    return createType(templateObject.trueName, defaultValue ? [templateObject.defaultValue] : [], (value, key) => value === undefined || value === null || value instanceof Array && value.every((it) => templateObject(it, key) === true));
+}
+exports.optionalObjectArray = optionalObjectArray;
 function generateConfig(file, template) {
     const config = {};
     for (const key in template) {

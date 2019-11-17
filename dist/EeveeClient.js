@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const CommandHandler_1 = require("./command/CommandHandler");
-class EeveeClient extends discord_js_1.Client {
+class SymphonyClient extends discord_js_1.Client {
     constructor(config, options) {
         super(options);
         this.config = config;
@@ -19,5 +19,5 @@ class EeveeClient extends discord_js_1.Client {
         return this.config.prefix;
     }
 }
-exports.default = EeveeClient;
-//# sourceMappingURL=EeveeClient.js.map
+exports.default = SymphonyClient;
+//# sourceMappingURL=SymphonyClient.js.map
