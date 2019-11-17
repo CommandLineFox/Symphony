@@ -1,2 +1,2 @@
-# Eevee
-Music bot
+# Symphony
+Music bot by Alex
