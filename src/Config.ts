@@ -1,7 +1,17 @@
-import { string, base, array} from "./ConfigHandler";
+import { string, base, array, object, number, objectArray} from "./ConfigHandler";
 
 export default {
-    token: string("NTk1OTUwNzQwODA4MjY5ODU2.Xcmg3g.yF7ejTz54X7M34dd9xb4kMvqZkM"),
+    token: string(""),
     prefix: string("!"),
-    owners: array(base.string)
+    owners: array(base.string),
+    database: object({
+        username: string("Eevee"),
+        password: string("Passw0rd!"),
+        database: string("Eevee"),
+        authenticationDatabase: string("admin"),
+        shards: objectArray({
+            host: string("localhost"),
+            port: number(27017)
+        })
+    })
 }

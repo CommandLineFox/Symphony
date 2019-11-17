@@ -1,13 +1,12 @@
 import { Client, ClientOptions, User, Guild } from "discord.js";
-import configTemplate from "./Config";
-import { IFunctionType } from "./ConfigHandler";
-import CommandHandler from "./command/CommandHandler"
-type configTemplate = typeof configTemplate
+import ConfigTemplate from "./Config";
+import { IFunctionResult } from "./ConfigHandler";
+import CommandHandler from "./command/CommandHandler";
 
 export default class EeveeClient extends Client {
-    readonly config: { [key in keyof configTemplate]: IFunctionType<configTemplate[key]> };
+    readonly config: IFunctionResult<typeof ConfigTemplate>;
 
-    constructor(config: { [key in keyof configTemplate]: IFunctionType<configTemplate[key]> }, options?: ClientOptions) {
+    constructor(config: IFunctionResult<typeof ConfigTemplate>, options?: ClientOptions) {
         super(options);
         this.config = config;
         this.once("ready", () => {

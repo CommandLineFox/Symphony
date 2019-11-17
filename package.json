@@ -23,6 +23,8 @@
     "typescript": "^3.6.4"
   },
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "@types/mongodb": "^3.3.10",
+    "discord.js": "^11.5.1",
+    "mongodb": "^3.3.4"
   }
 }

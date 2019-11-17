@@ -2,6 +2,7 @@ import * as fs from "fs";
 import configTemplate from "./Config";
 import { generateConfig, getConfig } from "./ConfigHandler";
 import EeveeClient from "./EeveeClient";
+import Database from "./database/Database";
 
 function main() {
     const configFile = "config.json";
@@ -20,7 +21,9 @@ function main() {
         console.info("Please use the above errors to fix your config before restarting the bot");
         return;
     }
-
+    
+    new Database(config);
+    
     const client = new EeveeClient(config);
     client.login(config.token);
     
