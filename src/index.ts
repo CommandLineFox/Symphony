@@ -2,8 +2,9 @@ import * as fs from "fs";
 import configTemplate from "./Config";
 import { generateConfig, getConfig } from "./ConfigHandler";
 import SymphonyClient from "./SymphonyClient";
+import Database from "./database/Database";
 
-function main() {
+async function main() {
     const configFile = "config.json";
 
     if(!fs.existsSync(configFile)) {
@@ -20,8 +21,9 @@ function main() {
         console.info("Please use the above errors to fix your config before restarting the bot");
         return;
     }
-        
-    const client = new SymphonyClient(config);
+
+    const database = await Database.getDatabase(config);
+    const client = new SymphonyClient(config,database)
     client.login(config.token);
     
     client.on("ready", () => {

@@ -1,12 +1,14 @@
 import configTemplate from "../Config";
 import { IFunctionResult } from "../ConfigHandler";
-import { MongoClient, Db } from "mongodb";
 export default class Database {
-    private readonly client;
     private readonly database;
-    constructor(client: MongoClient, database: Db);
-    static getClient(config: IFunctionResult<typeof configTemplate>): Promise<{
-        client: MongoClient;
-        database: Db;
-    }>;
+    private constructor();
+    getAll(collection: string): Promise<object[]>;
+    getOne(collection: string, id: string): Promise<object | null>;
+    remove(collection: string, id: string): void;
+    save(collection: string, data: {
+        [key: string]: any;
+        id: string;
+    }): void;
+    static getDatabase(config: IFunctionResult<typeof configTemplate>): Promise<Database>;
 }

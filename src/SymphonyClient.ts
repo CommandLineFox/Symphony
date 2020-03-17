@@ -2,13 +2,16 @@ import { Client, ClientOptions, User, Guild } from "discord.js";
 import ConfigTemplate from "./Config";
 import { IFunctionResult } from "./ConfigHandler";
 import CommandHandler from "./command/CommandHandler";
+import Database from "./database/Database";
 
 export default class SymphonyClient extends Client {
     readonly config: IFunctionResult<typeof ConfigTemplate>;
+    readonly database: Database;
 
-    constructor(config: IFunctionResult<typeof ConfigTemplate>, options?: ClientOptions) {
+    constructor(config: IFunctionResult<typeof ConfigTemplate>, database: Database, options?: ClientOptions) {
         super(options);
         this.config = config;
+        this.database = database;
         this.once("ready", () => {
             new CommandHandler (this)
         });
@@ -22,6 +25,7 @@ export default class SymphonyClient extends Client {
         if (guild) {
             
         }
+        
         return this.config.prefix;
     }
 }

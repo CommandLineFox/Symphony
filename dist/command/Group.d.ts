@@ -12,6 +12,6 @@ export default class Group implements GroupOptions {
     readonly guildOnly: boolean;
     constructor(options: GroupOptions);
     private _commands;
-    readonly commands: ReadonlyArray<Command>;
+    get commands(): ReadonlyArray<Command>;
 }
 export {};

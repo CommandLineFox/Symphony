@@ -3,7 +3,7 @@ declare const _default: {
     prefix: import("./ConfigHandler").IFunction<string>;
     owners: import("./ConfigHandler").IFunction<unknown[]>;
     database: import("./ConfigHandler").IFunction<import("./ConfigHandler").IFunctionResult<{
-        username: import("./ConfigHandler").IFunction<string>;
+        user: import("./ConfigHandler").IFunction<string>;
         password: import("./ConfigHandler").IFunction<string>;
         database: import("./ConfigHandler").IFunction<string>;
         authenticationDatabase: import("./ConfigHandler").IFunction<string>;

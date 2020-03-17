@@ -5,9 +5,9 @@ export default {
     prefix: string("!"),
     owners: array(base.string),
     database: object({
-        username: string("Eevee"),
+        user: string("Symphony"),
         password: string("Passw0rd!"),
-        database: string("Eevee"),
+        database: string("Symphony"),
         authenticationDatabase: string("admin"),
         shards: objectArray({
             host: string("localhost"),

@@ -6,9 +6,9 @@ exports.default = {
     prefix: ConfigHandler_1.string("!"),
     owners: ConfigHandler_1.array(ConfigHandler_1.base.string),
     database: ConfigHandler_1.object({
-        username: ConfigHandler_1.string("Eevee"),
+        user: ConfigHandler_1.string("Symphony"),
         password: ConfigHandler_1.string("Passw0rd!"),
-        database: ConfigHandler_1.string("Eevee"),
+        database: ConfigHandler_1.string("Symphony"),
         authenticationDatabase: ConfigHandler_1.string("admin"),
         shards: ConfigHandler_1.objectArray({
             host: ConfigHandler_1.string("localhost"),
