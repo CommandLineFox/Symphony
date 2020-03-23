@@ -24,11 +24,11 @@ export default abstract class Command implements CommandOptions {
     protected constructor (options: CommandOptions) {
         this.name = options.name;
         this.triggers = options.triggers;
-        this.botPermissions = options.botPermissions || [];
-        this.userPermissions = options.userPermissions || [];
+        this.botPermissions = options.botPermissions ?? [];
+        this.userPermissions = options.userPermissions ?? [];
         this.group = options.group;
-        this.guildOnly = this.group.guildOnly || options.guildOnly || false;
-        this.ownerOnly = this.group.ownerOnly || options.ownerOnly || false;
+        this.guildOnly = this.group.guildOnly ?? options.guildOnly ?? false;
+        this.ownerOnly = this.group.ownerOnly ?? options.ownerOnly ?? false;
     }
 
     execute(event: CommandEvent) : void {
