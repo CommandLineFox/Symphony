@@ -1,3 +1,3 @@
-import Group from "./command/Group";
+import Group from "@command/Group";
 
 export const Basic = new Group({name: "Basic", description: "" });

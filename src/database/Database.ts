@@ -1,5 +1,5 @@
-import configTemplate from "../Config";
-import { IFunctionResult } from "../ConfigHandler";
+import configTemplate from "~/Config";
+import { IFunctionResult } from "~/ConfigHandler";
 import { MongoClient, Db } from "mongodb";
 
 export default class Database {

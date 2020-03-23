@@ -1,7 +1,7 @@
-import SymphonyClient from "../SymphonyClient";
-import CommandRegistry from "../command/CommandRegistry";
+import SymphonyClient from "~/SymphonyClient";
+import CommandRegistry from "@command/CommandRegistry";
 import { Message } from "discord.js";
-import CommandEvent from "./CommandEvent";
+import CommandEvent from "@command/CommandEvent";
 
 export default class CommandHandler {
     private readonly client: SymphonyClient;

@@ -1,5 +1,5 @@
-import Command from "./Command";
-import CommandRegistry from "./CommandRegistry";
+import Command from "@command/Command";
+import CommandRegistry from "@command/CommandRegistry";
 
 interface GroupOptions {
     readonly name: string;

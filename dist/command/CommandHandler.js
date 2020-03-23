@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const CommandRegistry_1 = require("../command/CommandRegistry");
+const CommandRegistry_1 = require("./CommandRegistry");
 const CommandEvent_1 = require("./CommandEvent");
 class CommandHandler {
     constructor(client) {

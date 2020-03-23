@@ -1,6 +1,6 @@
-import Command from "./Command";
-import Group from "./Group";
-import Echo from "../commands/Basic/Echo";
+import Command from "@command/Command";
+import Group from "@command/Group";
+import Echo from "@commands/Basic/Echo";
 
 class CommandRegistry {
     readonly commands: ReadonlyArray<Command> = [

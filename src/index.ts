@@ -1,8 +1,8 @@
 import * as fs from "fs";
-import configTemplate from "./Config";
-import { generateConfig, getConfig } from "./ConfigHandler";
-import SymphonyClient from "./SymphonyClient";
-import Database from "./database/Database";
+import configTemplate from "~/Config";
+import { generateConfig, getConfig } from "~/ConfigHandler";
+import SymphonyClient from "~/SymphonyClient";
+import Database from "@database/Database";
 
 async function main() {
     const configFile = "config.json";

@@ -24,12 +24,21 @@
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
         "target": "es2020",
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["src/*"],
+            "@arguments/*": ["src/command/arguments/*"],
+            "@command/*": ["src/command/*"],
+            "@commands/*": ["src/commands/*"],
+            "@database/*": ["src/database/*"],
+            "@config": ["config.json"]
+        },
         "types": [
             "node",
             "discord.js"
         ]
     },
     "include": [
-        "src/**/*",
+        "src/**/*"
     ]
 }

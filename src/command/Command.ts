@@ -1,6 +1,6 @@
 import { PermissionResolvable } from "discord.js";
-import CommandEvent from "./CommandEvent";
-import Group from "./Group";
+import CommandEvent from "@command/CommandEvent";
+import Group from "@command/Group";
 
 interface CommandOptions {
     readonly name: string;

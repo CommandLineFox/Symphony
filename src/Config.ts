@@ -1,4 +1,4 @@
-import { string, base, array, object, number, objectArray} from "./ConfigHandler";
+import { string, base, array, object, number, objectArray} from "~/ConfigHandler";
 
 export default {
     token: string(""),

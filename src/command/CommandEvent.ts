@@ -1,5 +1,5 @@
 import { Message, StringResolvable, MessageOptions, Attachment, RichEmbed, TextChannel, DMChannel, GroupDMChannel, User, Guild, GuildMember } from "discord.js";
-import SymphonyClient from "../SymphonyClient";
+import SymphonyClient from "~/SymphonyClient";
 
 export default class CommandEvent {
     readonly message: Message;
