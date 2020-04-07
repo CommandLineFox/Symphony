@@ -14,6 +14,12 @@ exports.default = {
             host: ConfigHandler_1.string("localhost"),
             port: ConfigHandler_1.number(27017)
         })
+    }),
+    lavalink: ConfigHandler_1.objectArray({
+        auth: ConfigHandler_1.string("Passw0rd!"),
+        name: ConfigHandler_1.string("Symphony"),
+        host: ConfigHandler_1.string("localhost"),
+        port: ConfigHandler_1.number(2333)
     })
 };
 //# sourceMappingURL=Config.js.map

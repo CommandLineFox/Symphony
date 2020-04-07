@@ -4,8 +4,7 @@ import { IFunctionResult } from "./ConfigHandler";
 import Database from "./database/Database";
 export default class SymphonyClient extends Client {
     readonly config: IFunctionResult<typeof ConfigTemplate>;
-    readonly database: Database;
-    constructor(config: IFunctionResult<typeof ConfigTemplate>, database: Database, options?: ClientOptions);
+    constructor(config: IFunctionResult<typeof ConfigTemplate>, _database: Database, options?: ClientOptions);
     isOwner(user: User): boolean;
     getPrefix(guild?: Guild): string;
 }

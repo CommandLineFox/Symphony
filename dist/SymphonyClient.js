@@ -3,10 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const CommandHandler_1 = require("./command/CommandHandler");
 class SymphonyClient extends discord_js_1.Client {
-    constructor(config, database, options) {
+    constructor(config, _database, options) {
         super(options);
         this.config = config;
-        this.database = database;
         this.once("ready", () => {
             new CommandHandler_1.default(this);
         });

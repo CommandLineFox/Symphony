@@ -2,13 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class Command {
     constructor(options) {
+        var _a, _b, _c, _d;
         this.name = options.name;
         this.triggers = options.triggers;
-        this.botPermissions = options.botPermissions ?? [];
-        this.userPermissions = options.userPermissions ?? [];
+        this.botPermissions = options.botPermissions || [];
+        this.userPermissions = options.userPermissions || [];
         this.group = options.group;
-        this.guildOnly = this.group.guildOnly ?? options.guildOnly ?? false;
-        this.ownerOnly = this.group.ownerOnly ?? options.ownerOnly ?? false;
+        this.guildOnly = (_b = (_a = this.group.guildOnly) !== null && _a !== void 0 ? _a : options.guildOnly) !== null && _b !== void 0 ? _b : false;
+        this.ownerOnly = (_d = (_c = this.group.ownerOnly) !== null && _c !== void 0 ? _c : options.ownerOnly) !== null && _d !== void 0 ? _d : false;
     }
     execute(event) {
         if (this.ownerOnly && !event.client.isOwner(event.author)) {

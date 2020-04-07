@@ -7,11 +7,17 @@ export default {
     database: object({
         user: string("Symphony"),
         password: string("Passw0rd!"),
-        database: string("Symphony"),
+        database: string("mongo"),
         authenticationDatabase: string("admin"),
         shards: objectArray({
             host: string("localhost"),
             port: number(27017)
         })
+    }),
+    lavalink: objectArray({
+        auth: string("Passw0rd!"),
+        name: string("Symphony"),
+        host: string("localhost"),
+        port: number(2333)
     })
 }
