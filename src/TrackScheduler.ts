@@ -96,4 +96,18 @@ export default class TrackScheduler {
             return [];
         }
     }
+
+    nextSong(guildId: string): object | null {
+        const queue = this.getQueue(guildId);
+        
+        if (queue.length === 0) {
+            return null;
+        }
+        
+        const song = queue.shift() as object;
+        
+        this.queues.set(guildId, queue);
+        
+        return song;
+    }
 }

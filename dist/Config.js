@@ -8,7 +8,7 @@ exports.default = {
     database: ConfigHandler_1.object({
         user: ConfigHandler_1.string("Symphony"),
         password: ConfigHandler_1.string("Passw0rd!"),
-        database: ConfigHandler_1.string("Symphony"),
+        database: ConfigHandler_1.string("mongo"),
         authenticationDatabase: ConfigHandler_1.string("admin"),
         shards: ConfigHandler_1.objectArray({
             host: ConfigHandler_1.string("localhost"),
