@@ -1,26 +1,7 @@
-import { Client } from "discord.js";
-import ConfigTemplate from "~/Config";
-import { IFunctionResult } from "~/ConfigHandler";
-import { Shoukaku, ShoukakuNodeOptions } from "shoukaku";
-
 export default class TrackScheduler {
-    readonly shoukaku: Shoukaku;
     private readonly queues: Map<string, object[]> = new Map();
 
-    constructor(client: Client, config: IFunctionResult<typeof ConfigTemplate>) {
-        this.shoukaku = new Shoukaku(client, config.lavalink as ShoukakuNodeOptions[], { moveOnDisconnect: true, resumable: false, reconnectTries: 2, restTimeout: 10000 });
-        this.shoukaku.on('ready', (name) => {
-            console.log(`Lavalink Node: ${name} is now connected`)
-        });
-        this.shoukaku.on('error', (name, error) => {
-            console.log(`Lavalink Node: ${name} emitted an error.`, error)
-        });
-        this.shoukaku.on('close', (name, code, reason) => {
-            console.log(`Lavalink Node: ${name} closed with code ${code}. Reason: ${reason || 'No reason'}`)
-        });
-        this.shoukaku.on('disconnected', (name, reason) => {
-            console.log(`Lavalink Node: ${name} disconnected. Reason: ${reason || 'No reason'}`)
-        });
+    constructor() {
     }
 
     getQueue(guildId: string): object[] {
