@@ -1,4 +1,4 @@
-import { Client, Message } from "discord.js";
+import { Client, Message, TextChannel, VoiceChannel } from "discord.js";
 import ConfigTemplate from "~/Config";
 import { IFunctionResult } from "~/ConfigHandler";
 import { Shoukaku, ShoukakuNodeOptions } from "shoukaku";
@@ -26,14 +26,36 @@ export default class PlayerManager {
     }
 
     async connect(message: Message) {
-        if (this.shoukaku.getPlayer(message.guild.id)) {
+        const guildId = message.guild!.id;
+        const channel = message.channel;
+        const member = message.member;
+        const voicechannel = member!.voice.channel;
+
+        if (this.shoukaku.getPlayer(guildId)) {
             return;
         }
-
+        if (!voicechannel) {
+            (channel as TextChannel).send("You have to be connected to a voice channel to use this command.");
+        }
+        
+        if (!(voicechannel as VoiceChannel).joinable) {
+            channel.send(`I am not allowed to join \`${voicechannel?.name}\``);
+        }
+        
         const node = this.shoukaku.getNode();
         const player = await node.joinVoiceChannel({
-            guildID: message.guild.id,
-            voiceChannelID: message.member.voiceChannelID
+            guildID: guildId,
+            voiceChannelID: voicechannel!.id
+        });
+        
+        player.on("end", () => {
+            const song = this.trackScheduler.nextSong(guildId);
+            
+            if (song === null) {
+                return;
+            }
+            
+            player.playTrack(song);
         });
     }
 }

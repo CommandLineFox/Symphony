@@ -1,22 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const shoukaku_1 = require("shoukaku");
 class TrackScheduler {
-    constructor(client, config) {
+    constructor() {
         this.queues = new Map();
-        this.shoukaku = new shoukaku_1.Shoukaku(client, config.lavalink, { moveOnDisconnect: true, resumable: false, reconnectTries: 2, restTimeout: 10000 });
-        this.shoukaku.on('ready', (name) => {
-            console.log(`Lavalink Node: ${name} is now connected`);
-        });
-        this.shoukaku.on('error', (name, error) => {
-            console.log(`Lavalink Node: ${name} emitted an error.`, error);
-        });
-        this.shoukaku.on('close', (name, code, reason) => {
-            console.log(`Lavalink Node: ${name} closed with code ${code}. Reason: ${reason || 'No reason'}`);
-        });
-        this.shoukaku.on('disconnected', (name, reason) => {
-            console.log(`Lavalink Node: ${name} disconnected. Reason: ${reason || 'No reason'}`);
-        });
     }
     getQueue(guildId) {
         var _a;
@@ -53,7 +39,7 @@ class TrackScheduler {
         if (indexesOrSongs.length === 0) {
             throw Error("Empty arrays are not allowed");
         }
-        if (typeof indexesOrSongs === "number") {
+        if (typeof indexesOrSongs[0] === "number") {
             this.queues.set(guildId, this.getQueue(guildId).filter((_, i) => !indexesOrSongs.includes(i)));
             return true;
         }
@@ -61,7 +47,6 @@ class TrackScheduler {
             let queue = [...this.getQueue(guildId)];
             const missing = [];
             indexesOrSongs.forEach((song) => {
-                song;
                 const newQueue = this.removeSong(queue, song);
                 if (newQueue === null) {
                     missing.push(song);

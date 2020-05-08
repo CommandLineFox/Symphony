@@ -23,11 +23,11 @@ async function main() {
     }
 
     const database = await Database.getDatabase(config);
-    const client = new SymphonyClient(config,database)
+    const client = new SymphonyClient(config,database);
     client.login(config.token);
     
     client.on("ready", () => {
-        console.log(`Logged in as ${client.user.tag}`);
+        console.log(`Logged in as ${client.user!.tag}`);
     })
 }
 

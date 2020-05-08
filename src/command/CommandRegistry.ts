@@ -1,10 +1,10 @@
 import Command from "@command/Command";
 import Group from "@command/Group";
-import Echo from "@commands/Basic/Echo";
+import Summon from "@commands/Music/Summon";
 
 class CommandRegistry {
     readonly commands: ReadonlyArray<Command> = [
-        new Echo()
+        new Summon()
     ];
     readonly groups: ReadonlyArray<Group> = this.commands.map((command) => command.group).filter((group, index, self) => self.indexOf(group) === index);
 

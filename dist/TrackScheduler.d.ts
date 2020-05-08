@@ -1,18 +1,14 @@
-import { Client } from "discord.js";
-import ConfigTemplate from "./Config";
-import { IFunctionResult } from "./ConfigHandler";
-import { Shoukaku } from "shoukaku";
+import { ShoukakuTrack } from "shoukaku";
 export default class TrackScheduler {
-    readonly shoukaku: Shoukaku;
     private readonly queues;
-    constructor(client: Client, config: IFunctionResult<typeof ConfigTemplate>);
-    getQueue(guildId: string): object[];
-    addSong(guildId: string, song: object): void;
-    removeSong(queue: object[], index: number): object[];
+    constructor();
+    getQueue(guildId: string): ShoukakuTrack[];
+    addSong(guildId: string, song: ShoukakuTrack): void;
+    removeSong(queue: ShoukakuTrack[], index: number): ShoukakuTrack[];
     removeSong(guildId: string, index: number): boolean;
-    removeSong(queue: object[], song: object): object[] | null;
-    removeSong(guildId: string, song: object): boolean;
+    removeSong(queue: ShoukakuTrack[], song: ShoukakuTrack): ShoukakuTrack[] | null;
+    removeSong(guildId: string, song: ShoukakuTrack): boolean;
     removeSongs(guildId: string, indexes: number[]): boolean;
-    removeSongs(guildId: string, songs: object[]): object[];
-    nextSong(guildId: string): object | null;
+    removeSongs(guildId: string, songs: ShoukakuTrack[]): ShoukakuTrack[];
+    nextSong(guildId: string): ShoukakuTrack | null;
 }

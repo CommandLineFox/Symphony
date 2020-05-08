@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Echo_1 = require("../commands/Basic/Echo");
+const Summon_1 = require("../commands/Music/Summon");
 class CommandRegistry {
     constructor() {
         this.commands = [
-            new Echo_1.default()
+            new Summon_1.default()
         ];
         this.groups = this.commands.map((command) => command.group).filter((group, index, self) => self.indexOf(group) === index);
     }
