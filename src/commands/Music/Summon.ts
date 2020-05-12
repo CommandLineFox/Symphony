@@ -3,8 +3,8 @@ import { Music } from "~/Groups";
 import CommandEvent from "@command/CommandEvent";
 
 export default class Summon extends Command {
-    constructor () {
-        super({name: "Summon", triggers: ["summon", "join"], group: Music})
+    constructor() {
+        super({ name: "Summon", triggers: ["summon", "join"], group: Music })
     }
 
     run(event: CommandEvent) {

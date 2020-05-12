@@ -37,24 +37,24 @@ export default class PlayerManager {
         if (!voicechannel) {
             (channel as TextChannel).send("You have to be connected to a voice channel to use this command.");
         }
-        
+
         if (!(voicechannel as VoiceChannel).joinable) {
             channel.send(`I am not allowed to join \`${voicechannel?.name}\``);
         }
-        
+
         const node = this.shoukaku.getNode();
         const player = await node.joinVoiceChannel({
             guildID: guildId,
             voiceChannelID: voicechannel!.id
         });
-        
+
         player.on("end", () => {
             const song = this.trackScheduler.nextSong(guildId);
-            
+
             if (song === null) {
                 return;
             }
-            
+
             player.playTrack(song);
         });
     }

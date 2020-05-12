@@ -16,19 +16,19 @@ export default class SymphonyClient extends Client {
         this.database = database;
         this.playerManager = new PlayerManager(this, config);
         this.once("ready", () => {
-            new CommandHandler (this)
+            new CommandHandler(this)
         });
     }
 
     isOwner(user: User): boolean {
         return this.config.owners.includes(user.id);
     }
-    
+
     getPrefix(guild?: Guild): string {
         if (guild) {
-            
+
         }
-        
+
         return this.config.prefix;
     }
 }

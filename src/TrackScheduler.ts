@@ -9,16 +9,16 @@ export default class TrackScheduler {
     getQueue(guildId: string): ShoukakuTrack[] {
         return this.queues.get(guildId) ?? [];
     }
-    
+
     addSong(guildId: string, song: ShoukakuTrack) {
         this.queues.set(guildId, [...this.getQueue(guildId), song]);
     }
-    
+
     removeSong(queue: ShoukakuTrack[], index: number): ShoukakuTrack[];
     removeSong(guildId: string, index: number): boolean;
     removeSong(queue: ShoukakuTrack[], song: ShoukakuTrack): ShoukakuTrack[] | null;
     removeSong(guildId: string, song: ShoukakuTrack): boolean;
-    removeSong(queueOrGuildId: string | ShoukakuTrack[], indexOrSong: number|ShoukakuTrack): boolean | ShoukakuTrack[] | null {
+    removeSong(queueOrGuildId: string | ShoukakuTrack[], indexOrSong: number | ShoukakuTrack): boolean | ShoukakuTrack[] | null {
         if (typeof queueOrGuildId === "string") {
             if (typeof indexOrSong === "number") {
                 this.queues.set(queueOrGuildId, this.removeSong(this.getQueue(queueOrGuildId), indexOrSong));
@@ -35,16 +35,16 @@ export default class TrackScheduler {
             }
             else {
                 const index = queueOrGuildId.indexOf(indexOrSong);
-                
+
                 if (index === -1) {
                     return null;
                 }
-                
+
                 return this.removeSong(queueOrGuildId, indexOrSong);
             }
         }
     }
-    
+
     removeSongs(guildId: string, indexes: number[]): boolean;
     removeSongs(guildId: string, songs: ShoukakuTrack[]): ShoukakuTrack[];
     removeSongs(guildId: string, indexesOrSongs: number[] | ShoukakuTrack[]): boolean | ShoukakuTrack[] {
@@ -58,38 +58,38 @@ export default class TrackScheduler {
         else {
             let queue = [...this.getQueue(guildId)];
             const missing = [] as ShoukakuTrack[];
-            
+
             (indexesOrSongs as ShoukakuTrack[]).forEach((song) => {
                 const newQueue = this.removeSong(queue, song);
-                
+
                 if (newQueue === null) {
                     missing.push(song);
                 } else {
                     queue = newQueue;
                 }
             })
-            
+
             if (missing.length === 0) {
                 return missing;
             }
-            
+
             this.queues.set(guildId, queue);
-            
+
             return [];
         }
     }
 
     nextSong(guildId: string): ShoukakuTrack | null {
         const queue = this.getQueue(guildId);
-        
+
         if (queue.length === 0) {
             return null;
         }
-        
+
         const song = queue.shift() as ShoukakuTrack;
-        
+
         this.queues.set(guildId, queue);
-        
+
         return song;
     }
 }

@@ -21,7 +21,7 @@ export default abstract class Command implements CommandOptions {
     readonly guildOnly?: boolean;
     readonly ownerOnly?: boolean;
 
-    protected constructor (options: CommandOptions) {
+    protected constructor(options: CommandOptions) {
         this.name = options.name;
         this.triggers = options.triggers;
         this.botPermissions = options.botPermissions || [];
@@ -31,7 +31,7 @@ export default abstract class Command implements CommandOptions {
         this.ownerOnly = this.group.ownerOnly ?? options.ownerOnly ?? false;
     }
 
-    execute(event: CommandEvent) : void {
+    execute(event: CommandEvent): void {
         if (this.ownerOnly && !event.client.isOwner(event.author)) {
             event.reply(' you do not own me!');
             return;
@@ -40,7 +40,7 @@ export default abstract class Command implements CommandOptions {
             event.reply(' this command can only be used in servers.');
             return;
         }
-        
+
         if (event.isFromGuild) {
             const missingBotPermission = event.textChannel!.permissionsFor(event.guild.me!)!.missing(this.botPermissions);
             if (!missingBotPermission) {
@@ -57,5 +57,5 @@ export default abstract class Command implements CommandOptions {
         this.run(event);
     }
 
-    protected abstract run(event: CommandEvent) : void;
+    protected abstract run(event: CommandEvent): void;
 }

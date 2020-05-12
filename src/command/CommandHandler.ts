@@ -7,9 +7,9 @@ export default class CommandHandler {
     private readonly client: SymphonyClient;
     private mentions: string[];
 
-    constructor (client: SymphonyClient) {
+    constructor(client: SymphonyClient) {
         this.client = client;
-        this.mentions = [ `<@${this.client.user!.id}>`, `<@!${this.client.user!.id}>` ];
+        this.mentions = [`<@${this.client.user!.id}>`, `<@!${this.client.user!.id}>`];
         client.on("message", (message) => {
             this.handleMessage(message);
         });
