@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getConfig = exports.generateConfig = exports.optionalObjectArray = exports.objectArray = exports.optionalArray = exports.array = exports.arrayWithOptionalObject = exports.arrayWithOptional = exports.optionalObject = exports.optional = exports.object = exports.string = exports.number = exports.boolean = exports.base = void 0;
 const fs = require("fs");
 function createBaseType(theName, check) {
     function temp(value, key) {

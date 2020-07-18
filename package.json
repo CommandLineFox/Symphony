@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexArcticFox/Symphony.git"
+    "url": "git+https://github.com/aleksab02/Symphony.git"
   },
   "author": "Alex",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AlexArcticFox/Symphony/issues"
+    "url": "https://github.com/aleksab02/Symphony/issues"
   },
-  "homepage": "https://github.com/AlexArcticFox/Symphony#readme",
+  "homepage": "https://github.com/aleksab02/Symphony#readme",
   "devDependencies": {
     "@types/node": "^12.12.50",
     "tscpaths": "0.0.9",
