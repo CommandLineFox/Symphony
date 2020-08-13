@@ -2,7 +2,7 @@ import { Client, ClientOptions, User, Guild } from "discord.js";
 import ConfigTemplate from "~/Config";
 import { IFunctionResult } from "~/ConfigHandler";
 import CommandHandler from "@command/CommandHandler";
-import Database from "@database/Database";
+import { Database } from "@database/Database";
 import PlayerManager from "~/PlayerManager";
 
 export default class SymphonyClient extends Client {

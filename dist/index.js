@@ -19,7 +19,8 @@ async function main() {
         console.info("Please use the above errors to fix your config before restarting the bot");
         return;
     }
-    const database = await Database_1.default.getDatabase(config);
+    const database = new Database_1.Database(config.database);
+    database.connect();
     const client = new SymphonyClient_1.default(config, database);
     client.login(config.token);
     client.on("ready", () => {

@@ -1,17 +1,14 @@
-import { string, base, array, object, number, objectArray } from "~/ConfigHandler";
+import { string, base, array, object, number, objectArray, boolean } from "~/ConfigHandler";
 
 export default {
     token: string(""),
     prefix: string("!"),
     owners: array(base.string),
     database: object({
-        user: string("Symphony"),
-        password: string("Passw0rd!"),
-        database: string("mongo"),
-        authenticationDatabase: string("admin"),
-        shards: objectArray({
-            host: string("localhost"),
-            port: number(27017)
+        name: string(""),
+        url: string(""),
+        mongoOptions: object({
+            useUnifiedTopology: boolean(true)
         })
     }),
     lavalink: objectArray({

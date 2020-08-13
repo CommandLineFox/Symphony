@@ -3,14 +3,11 @@ declare const _default: {
     prefix: import("./ConfigHandler").IFunction<string>;
     owners: import("./ConfigHandler").IFunction<unknown[]>;
     database: import("./ConfigHandler").IFunction<import("./ConfigHandler").IFunctionResult<{
-        user: import("./ConfigHandler").IFunction<string>;
-        password: import("./ConfigHandler").IFunction<string>;
-        database: import("./ConfigHandler").IFunction<string>;
-        authenticationDatabase: import("./ConfigHandler").IFunction<string>;
-        shards: import("./ConfigHandler").IFunction<import("./ConfigHandler").IFunctionResult<{
-            host: import("./ConfigHandler").IFunction<string>;
-            port: import("./ConfigHandler").IFunction<number>;
-        }>[]>;
+        name: import("./ConfigHandler").IFunction<string>;
+        url: import("./ConfigHandler").IFunction<string>;
+        mongoOptions: import("./ConfigHandler").IFunction<import("./ConfigHandler").IFunctionResult<{
+            useUnifiedTopology: import("./ConfigHandler").IFunction<boolean>;
+        }>>;
     }>>;
     lavalink: import("./ConfigHandler").IFunction<import("./ConfigHandler").IFunctionResult<{
         auth: import("./ConfigHandler").IFunction<string>;

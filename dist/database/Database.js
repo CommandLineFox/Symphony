@@ -1,34 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Database = void 0;
 const mongodb_1 = require("mongodb");
 class Database {
-    constructor(_client, database) {
-        this.database = database;
+    constructor(config) {
+        this.config = config;
     }
-    getAll(collection) {
-        return this.database.collection(collection).find().toArray();
-    }
-    getOne(collection, id) {
-        return this.database.collection(collection).findOne({ id: id });
-    }
-    remove(collection, id) {
-        this.database.collection(collection).findOneAndDelete({ id: id });
-    }
-    save(collection, data) {
-        this.database.collection(collection).updateOne({ id: data.id }, data, { upsert: true });
-    }
-    static async getDatabase(config) {
-        const { user, password, authenticationDatabase, shards } = config.database;
-        function mongoUrlEncoder(str) {
-            return str.replace(/@/g, "%40")
-                .replace(/:/g, "%3A")
-                .replace(/\//g, "%2F")
-                .replace(/%/g, "%25");
-        }
-        const client = await (new mongodb_1.MongoClient(`mongodb://${mongoUrlEncoder(user)}:${mongoUrlEncoder(password)}@${shards.map(({ host, port }) => host + ":" + port).join(",")}/${authenticationDatabase}`, { useUnifiedTopology: true })).connect();
-        const database = client.db(config.database.database);
-        return new Database(client, database);
+    async connect() {
+        const client = await mongodb_1.connect(this.config.url, this.config.mongoOptions)
+            .catch(err => {
+            throw err;
+        });
+        this.db = client.db(this.config.name);
+        console.log("Connected to database");
     }
 }
-exports.default = Database;
+exports.Database = Database;
 //# sourceMappingURL=Database.js.map

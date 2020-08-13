@@ -6,13 +6,10 @@ exports.default = {
     prefix: ConfigHandler_1.string("!"),
     owners: ConfigHandler_1.array(ConfigHandler_1.base.string),
     database: ConfigHandler_1.object({
-        user: ConfigHandler_1.string("Symphony"),
-        password: ConfigHandler_1.string("Passw0rd!"),
-        database: ConfigHandler_1.string("mongo"),
-        authenticationDatabase: ConfigHandler_1.string("admin"),
-        shards: ConfigHandler_1.objectArray({
-            host: ConfigHandler_1.string("localhost"),
-            port: ConfigHandler_1.number(27017)
+        name: ConfigHandler_1.string(""),
+        url: ConfigHandler_1.string(""),
+        mongoOptions: ConfigHandler_1.object({
+            useUnifiedTopology: ConfigHandler_1.boolean(true)
         })
     }),
     lavalink: ConfigHandler_1.objectArray({
