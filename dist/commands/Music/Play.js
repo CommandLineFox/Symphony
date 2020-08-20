@@ -12,7 +12,9 @@ class Play extends Command_1.default {
         if (client.playerManager.resume(event)) {
             return;
         }
-        client.playerManager.voiceChannelCheck(event, member);
+        if (!client.playerManager.voiceChannelCheck(event, member)) {
+            return;
+        }
         const trackList = await client.playerManager.getTracks(event);
         if (!trackList) {
             return;

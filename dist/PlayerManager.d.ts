@@ -12,6 +12,6 @@ export default class PlayerManager {
     play(event: CommandEvent, trackList: ShoukakuTrackList): Promise<void>;
     skip(event: CommandEvent): Promise<void>;
     resume(event: CommandEvent): boolean;
-    voiceChannelCheck(event: CommandEvent, member: GuildMember): true | undefined;
+    voiceChannelCheck(event: CommandEvent, member: GuildMember): boolean;
     getTracks(event: CommandEvent, search?: Source): Promise<ShoukakuTrackList | undefined>;
 }

@@ -9,6 +9,11 @@ export default class Skip extends Command {
 
     run(event: CommandEvent) {
         const client = event.client;
+        const member = event.member;
+        
+        if (!client.playerManager.voiceChannelCheck(event, member)) {
+            return;
+        }
         
         client.playerManager.skip(event);
     }

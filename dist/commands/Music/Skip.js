@@ -8,6 +8,10 @@ class Skip extends Command_1.default {
     }
     run(event) {
         const client = event.client;
+        const member = event.member;
+        if (!client.playerManager.voiceChannelCheck(event, member)) {
+            return;
+        }
         client.playerManager.skip(event);
     }
 }

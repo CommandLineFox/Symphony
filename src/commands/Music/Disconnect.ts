@@ -18,6 +18,6 @@ export default class Disconnect extends Command {
         }
 
         player.disconnect();
-        event.send("Disconnected!");
+        event.send("Disconnected.");
     }
 }

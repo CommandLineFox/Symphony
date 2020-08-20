@@ -58,10 +58,15 @@ class PlayerManager {
             return;
         }
         const track = trackList.tracks.shift();
-        player.playTrack(track);
         this.trackScheduler.addSongs(message.guild.id, trackList.tracks);
-        event.send(`Playing ${track.info.title}!`);
-        if (trackList.tracks.length !== 0) {
+        if (!player.track) {
+            player.playTrack(track);
+            event.send(`Playing ${track.info.title}!`);
+        }
+        else if (player.track) {
+            event.send(`Added ${track.info.title} to the queue.`);
+        }
+        else if (trackList.tracks.length !== 0) {
             event.send(`Added ${trackList.tracks.length} song(s) to the queue.`);
         }
     }
@@ -78,7 +83,7 @@ class PlayerManager {
             player.stopTrack();
             return;
         }
-        player.playTrack(track);
+        player.playTrack(track, { noReplace: false });
         event.send("Skipped!");
     }
     resume(event) {
@@ -96,11 +101,11 @@ class PlayerManager {
         const me = event.guild.me;
         if (!member.voice.channel) {
             event.send("You have to be connected to a voice channel to use this command!");
-            return;
+            return false;
         }
         if (me.voice.channel && me.voice.channel !== member.voice.channel) {
             event.send("I'm already playing music elsewhere.");
-            return;
+            return false;
         }
         return true;
     }
