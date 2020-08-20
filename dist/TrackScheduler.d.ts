@@ -4,6 +4,7 @@ export default class TrackScheduler {
     constructor();
     getQueue(guildId: string): ShoukakuTrack[];
     addSong(guildId: string, song: ShoukakuTrack): void;
+    addSongs(guildId: string, song: ReadonlyArray<ShoukakuTrack>): void;
     removeSong(queue: ShoukakuTrack[], index: number): ShoukakuTrack[];
     removeSong(guildId: string, index: number): boolean;
     removeSong(queue: ShoukakuTrack[], song: ShoukakuTrack): ShoukakuTrack[] | null;

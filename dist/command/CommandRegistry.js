@@ -1,11 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Ping_1 = require("../commands/Basic/Ping");
+const Disconnect_1 = require("../commands/Music/Disconnect");
+const Play_1 = require("../commands/Music/Play");
+const Skip_1 = require("../commands/Music/Skip");
 const Summon_1 = require("../commands/Music/Summon");
 class CommandRegistry {
     constructor() {
         this.commands = [
             new Ping_1.default(),
+            new Disconnect_1.default(),
+            new Play_1.default(),
+            new Skip_1.default(),
             new Summon_1.default()
         ];
         this.groups = this.commands.map((command) => command.group).filter((group, index, self) => self.indexOf(group) === index);

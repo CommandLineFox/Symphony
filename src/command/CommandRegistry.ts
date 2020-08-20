@@ -1,11 +1,17 @@
 import Command from "@command/Command";
 import Group from "@command/Group";
 import Ping from "@commands/Basic/Ping";
+import Disconnect from "@commands/Music/Disconnect";
+import Play from "@commands/Music/Play";
+import Skip from "@commands/Music/Skip";
 import Summon from "@commands/Music/Summon";
 
 class CommandRegistry {
     readonly commands: ReadonlyArray<Command> = [
         new Ping(),
+        new Disconnect(),
+        new Play(),
+        new Skip(),
         new Summon()
     ];
     readonly groups: ReadonlyArray<Group> = this.commands.map((command) => command.group).filter((group, index, self) => self.indexOf(group) === index);

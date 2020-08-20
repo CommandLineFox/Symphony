@@ -1,8 +1,9 @@
-import { Client, Message, TextChannel, VoiceChannel } from "discord.js";
+import { Client, TextChannel, VoiceChannel, GuildMember } from "discord.js";
 import ConfigTemplate from "~/Config";
 import { IFunctionResult } from "~/ConfigHandler";
-import { Shoukaku, ShoukakuNodeOptions } from "shoukaku";
+import { Shoukaku, ShoukakuNodeOptions, ShoukakuTrackList, Source } from "shoukaku";
 import TrackScheduler from "~/TrackScheduler";
+import CommandEvent from "./command/CommandEvent";
 
 export default class PlayerManager {
     readonly shoukaku: Shoukaku;
@@ -25,21 +26,24 @@ export default class PlayerManager {
         });
     }
 
-    async connect(message: Message) {
-        const guildId = message.guild!.id;
-        const channel = message.channel;
-        const member = message.member;
+    async connect(event: CommandEvent) {
+        const guildId = event.guild!.id;
+        const channel = event.channel;
+        const member = event.member;
         const voicechannel = member!.voice.channel;
 
         if (this.shoukaku.getPlayer(guildId)) {
+            (channel as TextChannel).send("Music is already playing elsewhere in the server.");
             return;
         }
         if (!voicechannel) {
             (channel as TextChannel).send("You have to be connected to a voice channel to use this command.");
+            return;
         }
 
         if (!(voicechannel as VoiceChannel).joinable) {
             channel.send(`I am not allowed to join \`${voicechannel?.name}\``);
+            return;
         }
 
         const node = this.shoukaku.getNode();
@@ -57,5 +61,100 @@ export default class PlayerManager {
 
             player.playTrack(song);
         });
+
+        return player;
+    }
+
+    async play(event: CommandEvent, trackList: ShoukakuTrackList) {
+        const guild = event.guild;
+        const message = event.message;
+
+        const player = this.shoukaku.getPlayer(guild!.id) || await this.connect(event);
+
+        if (!player) {
+            return;
+        }
+
+        const track = trackList!.tracks.shift()!;
+        player.playTrack(track);
+
+        this.trackScheduler.addSongs(message.guild!.id, trackList!.tracks);
+        event.send(`Playing ${track.info.title}!`);
+        if (trackList.tracks.length !== 0) {
+            event.send(`Added ${trackList.tracks.length} song(s) to the queue.`);
+        }
+    }
+
+    async skip(event: CommandEvent) {
+        const guild = event.guild;
+        const player = this.shoukaku.getPlayer(guild!.id);
+
+        if (!player) {
+            event.send("I'm not connected to a voice channel.")
+            return;
+        }
+
+        const track = this.trackScheduler.nextSong(guild.id);
+        if (!track) {
+            event.send("There's no more songs in the queue");
+            player.stopTrack();
+            return;
+        }
+        player.playTrack(track);
+        event.send("Skipped!");
+    }
+
+    resume(event: CommandEvent) {
+        const guild = event.guild;
+        const argument = event.argument;
+        const player = this.shoukaku.getPlayer(guild!.id);
+
+        if (player && player.paused && !argument && player.track) {
+            player.setPaused(false);
+            event.send("Resumed!");
+            return true;
+        }
+
+        return false;
+    }
+
+    voiceChannelCheck(event: CommandEvent, member: GuildMember) {
+        const me = event.guild.me;
+        if (!member.voice.channel) {
+            event.send("You have to be connected to a voice channel to use this command!")
+            return;
+        }
+
+        if (me!.voice.channel && me!.voice.channel !== member.voice.channel) {
+            event.send("I'm already playing music elsewhere.");
+            return;
+        }
+
+        return true;
+    }
+
+    async getTracks(event: CommandEvent, search?: Source): Promise<ShoukakuTrackList | undefined> {
+        const argument = event.argument;
+
+        if (search) {
+            let trackList = await this.shoukaku.getNode().rest.resolve(argument, search)
+
+            if (trackList === null) {
+                event.send("Couldn't find the song you're looking for.");
+                return;
+            }
+
+            trackList.tracks.splice(1);
+
+            return trackList;
+        }
+        else {
+            let trackList = await this.shoukaku.getNode().rest.resolve(argument)
+
+            if (trackList == null) {
+                return this.getTracks(event, "youtube");
+            }
+            return trackList;
+        }
     }
 }

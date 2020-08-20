@@ -14,6 +14,10 @@ export default class TrackScheduler {
         this.queues.set(guildId, [...this.getQueue(guildId), song]);
     }
 
+    addSongs(guildId: string, song: ReadonlyArray<ShoukakuTrack>) {
+        this.queues.set(guildId, [...this.getQueue(guildId), ...song]);
+    }
+    
     removeSong(queue: ShoukakuTrack[], index: number): ShoukakuTrack[];
     removeSong(guildId: string, index: number): boolean;
     removeSong(queue: ShoukakuTrack[], song: ShoukakuTrack): ShoukakuTrack[] | null;

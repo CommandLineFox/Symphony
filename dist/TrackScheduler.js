@@ -11,6 +11,9 @@ class TrackScheduler {
     addSong(guildId, song) {
         this.queues.set(guildId, [...this.getQueue(guildId), song]);
     }
+    addSongs(guildId, song) {
+        this.queues.set(guildId, [...this.getQueue(guildId), ...song]);
+    }
     removeSong(queueOrGuildId, indexOrSong) {
         if (typeof queueOrGuildId === "string") {
             if (typeof indexOrSong === "number") {
