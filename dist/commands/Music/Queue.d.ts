@@ -1,6 +1,6 @@
 import Command from "../../command/Command";
 import CommandEvent from "../../command/CommandEvent";
-export default class Skip extends Command {
+export default class Queue extends Command {
     constructor();
-    run(event: CommandEvent): Promise<void>;
+    run(event: CommandEvent): void;
 }

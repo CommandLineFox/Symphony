@@ -10,6 +10,10 @@ export default class TrackScheduler {
         return this.queues.get(guildId) ?? [];
     }
 
+    emptyQueue(guildId:string) {
+        this.queues.set(guildId, []);
+    }
+
     addSong(guildId: string, song: ShoukakuTrack) {
         this.queues.set(guildId, [...this.getQueue(guildId), song]);
     }

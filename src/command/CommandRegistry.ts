@@ -3,6 +3,7 @@ import Group from "@command/Group";
 import Ping from "@commands/Basic/Ping";
 import Disconnect from "@commands/Music/Disconnect";
 import Play from "@commands/Music/Play";
+import Queue from "@commands/Music/Queue";
 import Skip from "@commands/Music/Skip";
 import Summon from "@commands/Music/Summon";
 
@@ -11,6 +12,7 @@ class CommandRegistry {
         new Ping(),
         new Disconnect(),
         new Play(),
+        new Queue(),
         new Skip(),
         new Summon()
     ];

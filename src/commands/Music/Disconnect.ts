@@ -4,7 +4,7 @@ import CommandEvent from "@command/CommandEvent";
 
 export default class Disconnect extends Command {
     constructor() {
-        super({ name: "Disconnect", triggers: ["leave", "disconnect"], group: Music })
+        super({ name: "Disconnect", triggers: ["leave", "disconnect", "dc"], group: Music })
     }
 
     run(event: CommandEvent) {
@@ -17,6 +17,7 @@ export default class Disconnect extends Command {
             return;
         }
 
+        client.playerManager.trackScheduler.emptyQueue(guild.id);
         player.disconnect();
         event.send("Disconnected.");
     }

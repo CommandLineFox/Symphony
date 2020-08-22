@@ -4,7 +4,7 @@ const Command_1 = require("../../command/Command");
 const Groups_1 = require("../../Groups");
 class Disconnect extends Command_1.default {
     constructor() {
-        super({ name: "Disconnect", triggers: ["leave", "disconnect"], group: Groups_1.Music });
+        super({ name: "Disconnect", triggers: ["leave", "disconnect", "dc"], group: Groups_1.Music });
     }
     run(event) {
         const client = event.client;
@@ -14,6 +14,7 @@ class Disconnect extends Command_1.default {
             event.send("I'm not connected to a voice channel.");
             return;
         }
+        client.playerManager.trackScheduler.emptyQueue(guild.id);
         player.disconnect();
         event.send("Disconnected.");
     }

@@ -7,7 +7,7 @@ export default class Skip extends Command {
         super({ name: "skip", triggers: ["skip", "s", "next"], group: Music })
     }
 
-    run(event: CommandEvent) {
+    async run(event: CommandEvent) {
         const client = event.client;
         const member = event.member;
         
@@ -15,6 +15,6 @@ export default class Skip extends Command {
             return;
         }
         
-        client.playerManager.skip(event);
+        await client.playerManager.skip(event);
     }
 }

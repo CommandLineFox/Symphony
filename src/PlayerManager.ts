@@ -77,18 +77,25 @@ export default class PlayerManager {
 
         const track = trackList!.tracks.shift()!;
 
-        this.trackScheduler.addSongs(message.guild!.id, trackList!.tracks);
         if (!player.track) {
             player.playTrack(track);
             event.send(`Playing ${track.info.title}!`);
+
+            if (trackList.tracks.length !== 0) {
+                this.trackScheduler.addSongs(message.guild!.id, trackList.tracks);
+                event.send(`Added ${trackList.tracks.length} song(s) to the queue.`);
+            }
         }
 
-        else if (player.track) {
+        else if (player.track && trackList.tracks.length === 0) {
+            this.trackScheduler.addSong(message.guild!.id, track);
             event.send(`Added ${track.info.title} to the queue.`);
         }
 
         else if (trackList.tracks.length !== 0) {
-            event.send(`Added ${trackList.tracks.length} song(s) to the queue.`);
+            this.trackScheduler.addSong(message.guild!.id, track);
+            this.trackScheduler.addSongs(message.guild!.id, trackList.tracks);
+            event.send(`Added ${trackList.tracks.length + 1} song(s) to the queue.`);
         }
     }
 
@@ -107,6 +114,7 @@ export default class PlayerManager {
             player.stopTrack();
             return;
         }
+
         player.playTrack(track, { noReplace: false });
         event.send("Skipped!");
     }

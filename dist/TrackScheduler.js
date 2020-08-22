@@ -8,6 +8,9 @@ class TrackScheduler {
         var _a;
         return (_a = this.queues.get(guildId)) !== null && _a !== void 0 ? _a : [];
     }
+    emptyQueue(guildId) {
+        this.queues.set(guildId, []);
+    }
     addSong(guildId, song) {
         this.queues.set(guildId, [...this.getQueue(guildId), song]);
     }
