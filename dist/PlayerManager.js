@@ -41,9 +41,12 @@ class PlayerManager {
             guildID: guildId,
             voiceChannelID: voicechannel.id
         });
-        player.on("end", () => {
+        player.on("end", (eventData) => {
+            if (eventData.reason === 'REPLACED') {
+                return;
+            }
             const song = this.trackScheduler.nextSong(guildId);
-            if (song === null) {
+            if (!song) {
                 return;
             }
             player.playTrack(song);
@@ -83,13 +86,17 @@ class PlayerManager {
             event.send("I'm not connected to a voice channel.");
             return;
         }
+        if (!player.track) {
+            event.send("There's nothing playing in this server.");
+            return;
+        }
         const track = this.trackScheduler.nextSong(guild.id);
         if (!track) {
             event.send("There's no more songs in the queue");
             player.stopTrack();
             return;
         }
-        player.playTrack(track, { noReplace: false });
+        await player.playTrack(track, { noReplace: false });
         event.send("Skipped!");
     }
     resume(event) {

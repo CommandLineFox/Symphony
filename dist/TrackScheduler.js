@@ -69,13 +69,7 @@ class TrackScheduler {
         }
     }
     nextSong(guildId) {
-        const queue = this.getQueue(guildId);
-        if (queue.length === 0) {
-            return null;
-        }
-        const song = queue.shift();
-        this.queues.set(guildId, queue);
-        return song;
+        return this.getQueue(guildId).shift();
     }
 }
 exports.default = TrackScheduler;

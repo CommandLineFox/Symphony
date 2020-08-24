@@ -88,16 +88,6 @@ export default class TrackScheduler {
     }
 
     nextSong(guildId: string): ShoukakuTrack | null {
-        const queue = this.getQueue(guildId);
-
-        if (queue.length === 0) {
-            return null;
-        }
-
-        const song = queue.shift() as ShoukakuTrack;
-
-        this.queues.set(guildId, queue);
-
-        return song;
+        return this.getQueue(guildId).shift() as ShoukakuTrack;
     }
 }
