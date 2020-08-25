@@ -41,10 +41,7 @@ class PlayerManager {
             guildID: guildId,
             voiceChannelID: voicechannel.id
         });
-        player.on("end", (eventData) => {
-            if (eventData.reason === 'REPLACED') {
-                return;
-            }
+        player.on("end", () => {
             const song = this.trackScheduler.nextSong(guildId);
             if (!song) {
                 return;
@@ -96,7 +93,7 @@ class PlayerManager {
             player.stopTrack();
             return;
         }
-        await player.playTrack(track, { noReplace: false });
+        player.stopTrack();
         event.send("Skipped!");
     }
     resume(event) {

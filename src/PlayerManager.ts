@@ -52,11 +52,7 @@ export default class PlayerManager {
             voiceChannelID: voicechannel!.id
         });
 
-        player.on("end", (eventData) => {
-            if (eventData.reason === 'REPLACED') {
-                return;
-            }
-
+        player.on("end", () => {
             const song = this.trackScheduler.nextSong(guildId);
 
             if (!song) {
@@ -124,7 +120,7 @@ export default class PlayerManager {
             return;
         }
 
-        await player.playTrack(track, { noReplace: false });
+        player.stopTrack();
         event.send("Skipped!");
     }
 
