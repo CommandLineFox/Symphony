@@ -1,13 +1,13 @@
 import Command from "@command/Command";
-import { Music } from "~/Groups";
+import {Music} from "~/Groups";
 import CommandEvent from "@command/CommandEvent";
 
 export default class Queue extends Command {
-    constructor() {
-        super({ name: "queue", triggers: ["queue", "q", "songs"], group: Music })
+    public constructor() {
+        super({name: "queue", triggers: ["queue", "q", "songs"], group: Music});
     }
 
-    run(event: CommandEvent) {
+    public async run(event: CommandEvent): Promise<void> {
         const client = event.client;
         const guild = event.guild;
         const playerManager = client.playerManager;
@@ -16,7 +16,7 @@ export default class Queue extends Command {
         const queue = playerManager.trackScheduler.getQueue(guild.id);
 
         if (!player) {
-            event.send("I'm not connected to a voice channel.")
+            await event.send("I'm not connected to a voice channel.");
             return;
         }
 
@@ -26,11 +26,10 @@ export default class Queue extends Command {
             queue.forEach((track) => {
                 content += `${track.info.title}\n`;
             });
-        }
-        else {
+        } else {
             content = "Queue is empty.";
         }
-        
-        event.send(content);
+
+        await event.send(content);
     }
 }

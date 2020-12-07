@@ -20,12 +20,14 @@ async function main() {
         return;
     }
     const database = new Database_1.Database(config.database);
-    database.connect();
+    await database.connect();
     const client = new SymphonyClient_1.default(config, database);
-    client.login(config.token);
+    await client.login(config.token);
     client.on("ready", () => {
         console.log(`Logged in as ${client.user.tag}`);
     });
 }
-main();
+main().catch((err) => {
+    console.log(err);
+});
 //# sourceMappingURL=index.js.map

@@ -18,19 +18,19 @@
   },
   "homepage": "https://github.com/aleksab02/Symphony#readme",
   "devDependencies": {
-    "@types/node": "^12.12.54",
-    "tscpaths": "0.0.9",
+    "@types/node": "^14.14.10",
+    "tscpaths": "^0.0.9",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.9.7"
+    "typescript": "^4.1.2"
   },
   "dependencies": {
-    "@types/mongodb": "^3.5.26",
-    "@types/ws": "^7.2.6",
-    "@typescript-eslint/eslint-plugin": "^2.34.0",
-    "@typescript-eslint/parser": "^2.34.0",
-    "discord.js": "12.2.0",
+    "@types/mongodb": "^3.6.1",
+    "@types/ws": "^7.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "discord.js": "12.5.1",
     "eslint": "^6.8.0",
-    "mongodb": "^3.6.0",
-    "shoukaku": "^1.4.2"
+    "mongodb": "^3.6.3",
+    "shoukaku": "^1.5.2"
   }
 }

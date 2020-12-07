@@ -9,17 +9,17 @@ class Play extends Command_1.default {
     async run(event) {
         const client = event.client;
         const member = event.member;
-        if (client.playerManager.resume(event)) {
+        if (await client.playerManager.resume(event)) {
             return;
         }
-        if (!client.playerManager.voiceChannelCheck(event, member)) {
+        if (!await client.playerManager.voiceChannelCheck(event, member)) {
             return;
         }
         const trackList = await client.playerManager.getTracks(event);
         if (!trackList) {
             return;
         }
-        client.playerManager.play(event, trackList);
+        await client.playerManager.play(event, trackList);
     }
 }
 exports.default = Play;

@@ -1,17 +1,17 @@
 import { Client, GuildMember } from "discord.js";
 import ConfigTemplate from "./Config";
-import { IFunctionResult } from "./ConfigHandler";
-import { Shoukaku, ShoukakuTrackList, Source } from "shoukaku";
+import { FunctionResult } from "./ConfigHandler";
+import { Shoukaku, ShoukakuPlayer, ShoukakuTrackList, Source } from "shoukaku";
 import TrackScheduler from "./TrackScheduler";
 import CommandEvent from "./command/CommandEvent";
 export default class PlayerManager {
     readonly shoukaku: Shoukaku;
     readonly trackScheduler: TrackScheduler;
-    constructor(client: Client, config: IFunctionResult<typeof ConfigTemplate>);
-    connect(event: CommandEvent): Promise<import("shoukaku").ShoukakuPlayer | undefined>;
+    constructor(client: Client, config: FunctionResult<typeof ConfigTemplate>);
+    connect(event: CommandEvent): Promise<ShoukakuPlayer | undefined>;
     play(event: CommandEvent, trackList: ShoukakuTrackList): Promise<void>;
     skip(event: CommandEvent): Promise<void>;
-    resume(event: CommandEvent): boolean;
-    voiceChannelCheck(event: CommandEvent, member: GuildMember): boolean;
+    resume(event: CommandEvent): Promise<boolean>;
+    voiceChannelCheck(event: CommandEvent, member: GuildMember): Promise<boolean>;
     getTracks(event: CommandEvent, search?: Source): Promise<ShoukakuTrackList | undefined>;
 }

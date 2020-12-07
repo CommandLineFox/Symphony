@@ -1,21 +1,21 @@
 import Command from "@command/Command";
-import { Music } from "~/Groups";
+import {Music} from "~/Groups";
 import CommandEvent from "@command/CommandEvent";
 
 export default class Play extends Command {
-    constructor() {
-        super({ name: "play", triggers: ["play", "p"], group: Music })
+    public constructor() {
+        super({name: "play", triggers: ["play", "p"], group: Music});
     }
 
-    async run(event: CommandEvent) {
+    public async run(event: CommandEvent): Promise<void> {
         const client = event.client;
         const member = event.member;
 
-        if (client.playerManager.resume(event)) {
+        if (await client.playerManager.resume(event)) {
             return;
         }
 
-        if (!client.playerManager.voiceChannelCheck(event, member)) {
+        if (!await client.playerManager.voiceChannelCheck(event, member)) {
             return;
         }
 
@@ -24,6 +24,6 @@ export default class Play extends Command {
             return;
         }
 
-        client.playerManager.play(event, trackList);
+        await client.playerManager.play(event, trackList);
     }
 }

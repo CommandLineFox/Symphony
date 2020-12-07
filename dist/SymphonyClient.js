@@ -18,6 +18,7 @@ class SymphonyClient extends discord_js_1.Client {
     }
     getPrefix(guild) {
         if (guild) {
+            return this.config.prefix;
         }
         return this.config.prefix;
     }

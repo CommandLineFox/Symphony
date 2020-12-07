@@ -6,14 +6,14 @@ class Queue extends Command_1.default {
     constructor() {
         super({ name: "queue", triggers: ["queue", "q", "songs"], group: Groups_1.Music });
     }
-    run(event) {
+    async run(event) {
         const client = event.client;
         const guild = event.guild;
         const playerManager = client.playerManager;
         const player = playerManager.shoukaku.getPlayer(guild.id);
         const queue = playerManager.trackScheduler.getQueue(guild.id);
         if (!player) {
-            event.send("I'm not connected to a voice channel.");
+            await event.send("I'm not connected to a voice channel.");
             return;
         }
         let content = "";
@@ -25,7 +25,7 @@ class Queue extends Command_1.default {
         else {
             content = "Queue is empty.";
         }
-        event.send(content);
+        await event.send(content);
     }
 }
 exports.default = Queue;

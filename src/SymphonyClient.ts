@@ -1,34 +1,33 @@
-import { Client, ClientOptions, User, Guild } from "discord.js";
+import {Client, ClientOptions, User, Guild} from "discord.js";
 import ConfigTemplate from "~/Config";
-import { IFunctionResult } from "~/ConfigHandler";
+import {FunctionResult} from "~/ConfigHandler";
 import CommandHandler from "@command/CommandHandler";
-import { Database } from "@database/Database";
+import {Database} from "@database/Database";
 import PlayerManager from "~/PlayerManager";
 
 export default class SymphonyClient extends Client {
-    readonly config: IFunctionResult<typeof ConfigTemplate>;
-    readonly database: Database;
-    readonly playerManager: PlayerManager;
+    public readonly config: FunctionResult<typeof ConfigTemplate>;
+    public readonly database: Database;
+    public readonly playerManager: PlayerManager;
 
-    constructor(config: IFunctionResult<typeof ConfigTemplate>, database: Database, options?: ClientOptions) {
+    public constructor(config: FunctionResult<typeof ConfigTemplate>, database: Database, options?: ClientOptions) {
         super(options);
         this.config = config;
         this.database = database;
         this.playerManager = new PlayerManager(this, config);
         this.once("ready", () => {
-            new CommandHandler(this)
+            new CommandHandler(this);
         });
     }
 
-    isOwner(user: User): boolean {
+    public isOwner(user: User): boolean {
         return this.config.owners.includes(user.id);
     }
 
-    getPrefix(guild?: Guild): string {
+    public getPrefix(guild?: Guild): string {
         if (guild) {
-
+            return this.config.prefix;
         }
-
         return this.config.prefix;
     }
 }

@@ -6,9 +6,9 @@ class Summon extends Command_1.default {
     constructor() {
         super({ name: "Summon", triggers: ["summon", "join"], group: Groups_1.Music });
     }
-    run(event) {
+    async run(event) {
         const client = event.client;
-        client.playerManager.connect(event);
+        await client.playerManager.connect(event);
     }
 }
 exports.default = Summon;

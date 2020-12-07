@@ -1,47 +1,45 @@
-import { ShoukakuTrack } from "shoukaku";
+import {ShoukakuTrack} from "shoukaku";
 
 export default class TrackScheduler {
     private readonly queues: Map<string, ShoukakuTrack[]> = new Map();
 
-    constructor() {
+    public constructor() {
+
     }
 
-    getQueue(guildId: string): ShoukakuTrack[] {
+    public getQueue(guildId: string): ShoukakuTrack[] {
         return this.queues.get(guildId) ?? [];
     }
 
-    emptyQueue(guildId:string) {
+    public emptyQueue(guildId: string): void {
         this.queues.set(guildId, []);
     }
 
-    addSong(guildId: string, song: ShoukakuTrack) {
+    public addSong(guildId: string, song: ShoukakuTrack): void {
         this.queues.set(guildId, [...this.getQueue(guildId), song]);
     }
 
-    addSongs(guildId: string, song: ReadonlyArray<ShoukakuTrack>) {
+    public addSongs(guildId: string, song: readonly ShoukakuTrack[]): void {
         this.queues.set(guildId, [...this.getQueue(guildId), ...song]);
     }
-    
-    removeSong(queue: ShoukakuTrack[], index: number): ShoukakuTrack[];
-    removeSong(guildId: string, index: number): boolean;
-    removeSong(queue: ShoukakuTrack[], song: ShoukakuTrack): ShoukakuTrack[] | null;
-    removeSong(guildId: string, song: ShoukakuTrack): boolean;
-    removeSong(queueOrGuildId: string | ShoukakuTrack[], indexOrSong: number | ShoukakuTrack): boolean | ShoukakuTrack[] | null {
+
+    public removeSong(queue: ShoukakuTrack[], index: number): ShoukakuTrack[];
+    public removeSong(guildId: string, index: number): boolean;
+    public removeSong(queue: ShoukakuTrack[], song: ShoukakuTrack): ShoukakuTrack[] | null;
+    public removeSong(guildId: string, song: ShoukakuTrack): boolean;
+    public removeSong(queueOrGuildId: string | ShoukakuTrack[], indexOrSong: number | ShoukakuTrack): boolean | ShoukakuTrack[] | null {
         if (typeof queueOrGuildId === "string") {
             if (typeof indexOrSong === "number") {
                 this.queues.set(queueOrGuildId, this.removeSong(this.getQueue(queueOrGuildId), indexOrSong));
                 return true;
+            } else {
+                return this.removeSong(this.getQueue(queueOrGuildId), indexOrSong) !== null;
             }
-            else {
-                return this.removeSong(this.getQueue(queueOrGuildId), indexOrSong) !== null
-            }
-        }
-        else {
+        } else {
             if (typeof indexOrSong === "number") {
                 queueOrGuildId.splice(indexOrSong, 1);
                 return queueOrGuildId;
-            }
-            else {
+            } else {
                 const index = queueOrGuildId.indexOf(indexOrSong);
 
                 if (index === -1) {
@@ -53,17 +51,16 @@ export default class TrackScheduler {
         }
     }
 
-    removeSongs(guildId: string, indexes: number[]): boolean;
-    removeSongs(guildId: string, songs: ShoukakuTrack[]): ShoukakuTrack[];
-    removeSongs(guildId: string, indexesOrSongs: number[] | ShoukakuTrack[]): boolean | ShoukakuTrack[] {
+    public removeSongs(guildId: string, indexes: number[]): boolean;
+    public removeSongs(guildId: string, songs: ShoukakuTrack[]): ShoukakuTrack[];
+    public removeSongs(guildId: string, indexesOrSongs: number[] | ShoukakuTrack[]): boolean | ShoukakuTrack[] {
         if (indexesOrSongs.length === 0) {
             throw Error("Empty arrays are not allowed");
         }
         if (typeof indexesOrSongs[0] === "number") {
             this.queues.set(guildId, this.getQueue(guildId).filter((_, i) => !(indexesOrSongs as number[]).includes(i)));
             return true;
-        }
-        else {
+        } else {
             let queue = [...this.getQueue(guildId)];
             const missing = [] as ShoukakuTrack[];
 
@@ -75,7 +72,7 @@ export default class TrackScheduler {
                 } else {
                     queue = newQueue;
                 }
-            })
+            });
 
             if (missing.length === 0) {
                 return missing;
@@ -87,7 +84,7 @@ export default class TrackScheduler {
         }
     }
 
-    nextSong(guildId: string): ShoukakuTrack | null {
+    public nextSong(guildId: string): ShoukakuTrack | null {
         return this.getQueue(guildId).shift() as ShoukakuTrack;
     }
 }

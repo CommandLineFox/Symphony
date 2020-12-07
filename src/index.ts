@@ -1,10 +1,10 @@
 import * as fs from "fs";
 import configTemplate from "~/Config";
-import { generateConfig, getConfig } from "~/ConfigHandler";
+import {generateConfig, getConfig} from "~/ConfigHandler";
 import SymphonyClient from "~/SymphonyClient";
-import { Database } from "@database/Database";
+import {Database} from "@database/Database";
 
-async function main() {
+async function main(): Promise<void> {
     const configFile = "config.json";
 
     if (!fs.existsSync(configFile)) {
@@ -23,13 +23,15 @@ async function main() {
     }
 
     const database = new Database(config.database);
-    database.connect();
+    await database.connect();
     const client = new SymphonyClient(config, database);
-    client.login(config.token);
+    await client.login(config.token);
 
     client.on("ready", () => {
         console.log(`Logged in as ${client.user!.tag}`);
-    })
+    });
 }
 
-main();
+main().catch((err) => {
+    console.log(err);
+});

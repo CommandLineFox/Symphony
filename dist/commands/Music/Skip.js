@@ -9,7 +9,7 @@ class Skip extends Command_1.default {
     async run(event) {
         const client = event.client;
         const member = event.member;
-        if (!client.playerManager.voiceChannelCheck(event, member)) {
+        if (!await client.playerManager.voiceChannelCheck(event, member)) {
             return;
         }
         await client.playerManager.skip(event);

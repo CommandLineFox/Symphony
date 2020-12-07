@@ -1,4 +1,4 @@
-import { Message, StringResolvable, MessageOptions, TextChannel, DMChannel, User, Guild, GuildMember, NewsChannel, MessageAttachment, MessageEmbed } from "discord.js";
+import { Message, StringResolvable, MessageOptions, TextChannel, DMChannel, User, Guild, GuildMember, NewsChannel, MessageEmbed } from "discord.js";
 import SymphonyClient from "../SymphonyClient";
 export default class CommandEvent {
     readonly message: Message;
@@ -11,6 +11,6 @@ export default class CommandEvent {
     readonly guild: Guild;
     readonly member: GuildMember;
     constructor(message: Message, client: SymphonyClient, argument: string);
-    send(content?: StringResolvable, options?: MessageOptions | MessageAttachment | MessageEmbed): Promise<Message | Message[]>;
-    reply(content?: StringResolvable, options?: MessageOptions): Promise<Message>;
+    send(content: StringResolvable, options?: MessageOptions | MessageEmbed): Promise<Message | Message[]>;
+    reply(content: StringResolvable, options?: MessageOptions): Promise<Message | Message[]>;
 }

@@ -1,4 +1,4 @@
-import { connect, Db, MongoClientOptions } from 'mongodb';
+import {connect, Db, MongoClientOptions} from "mongodb";
 
 interface DatabaseConfig {
     url: string;
@@ -7,10 +7,12 @@ interface DatabaseConfig {
 }
 
 export class Database {
-    db!: Db;
-    constructor(protected config: DatabaseConfig) { }
+    public db!: Db;
 
-    async connect() {
+    public constructor(protected config: DatabaseConfig) {
+    }
+
+    public async connect(): Promise<void> {
         const client = await connect(this.config.url, this.config.mongoOptions)
             .catch(err => {
                 throw err;

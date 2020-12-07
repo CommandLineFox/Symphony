@@ -1,4 +1,4 @@
-import { Db, MongoClientOptions } from 'mongodb';
+import { Db, MongoClientOptions } from "mongodb";
 interface DatabaseConfig {
     url: string;
     name: string;

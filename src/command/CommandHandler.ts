@@ -1,38 +1,34 @@
 import SymphonyClient from "~/SymphonyClient";
 import CommandRegistry from "@command/CommandRegistry";
-import { Message } from "discord.js";
+import {Message} from "discord.js";
 import CommandEvent from "@command/CommandEvent";
 
 export default class CommandHandler {
     private readonly client: SymphonyClient;
-    private mentions: string[];
+    private readonly mentions: string[];
 
-    constructor(client: SymphonyClient) {
+    public constructor(client: SymphonyClient) {
         this.client = client;
         this.mentions = [`<@${this.client.user!.id}>`, `<@!${this.client.user!.id}>`];
-        client.on("message", (message) => {
-            this.handleMessage(message);
+        client.on("message", async (message) => {
+            await this.handleMessage(message);
         });
     }
 
-    private handleMessage(message: Message) {
+    private async handleMessage(message: Message): Promise<void> {
         const content = message.content;
         const prefix = this.client.getPrefix(message.guild!);
 
         if (content.startsWith(prefix)) {
-            this.handlePrefix(message, content.slice(prefix.length).trim());
-        }
-
-        else if (content.startsWith(this.mentions[0])) {
-            this.handleMention(message, content.slice(this.mentions![0].length).trim());
-        }
-
-        else if (content.startsWith(this.mentions[1])) {
-            this.handleMention(message, content.slice(this.mentions![1].length).trim());
+            await this.handlePrefix(message, content.slice(prefix.length).trim());
+        } else if (content.startsWith(this.mentions[0])) {
+            await this.handleMention(message, content.slice(this.mentions![0].length).trim());
+        } else if (content.startsWith(this.mentions[1])) {
+            await this.handleMention(message, content.slice(this.mentions![1].length).trim());
         }
     }
 
-    private handlePrefix(message: Message, content: string) {
+    private async handlePrefix(message: Message, content: string): Promise<void> {
         if (content.length === 0) {
             return;
         }
@@ -44,14 +40,14 @@ export default class CommandHandler {
             return;
         }
 
-        command.execute(new CommandEvent(message, this.client, args));
+        await command.execute(new CommandEvent(message, this.client, args));
     }
 
-    private handleMention(message: Message, content: string) {
+    private async handleMention(message: Message, content: string): Promise<void> {
         if (content.length === 0) {
-            message.reply(`My prefix here is \`${this.client.getPrefix(message.guild!)}\``);
+            await message.reply(`My prefix here is \`${this.client.getPrefix(message.guild!)}\``);
             return;
         }
-        this.handlePrefix(message, content);
+        await this.handlePrefix(message, content);
     }
 }

@@ -6,17 +6,17 @@ class Disconnect extends Command_1.default {
     constructor() {
         super({ name: "Disconnect", triggers: ["leave", "disconnect", "dc"], group: Groups_1.Music });
     }
-    run(event) {
+    async run(event) {
         const client = event.client;
         const guild = event.guild;
         const player = client.playerManager.shoukaku.getPlayer(guild.id);
         if (!player) {
-            event.send("I'm not connected to a voice channel.");
+            await event.send("I'm not connected to a voice channel.");
             return;
         }
         client.playerManager.trackScheduler.emptyQueue(guild.id);
         player.disconnect();
-        event.send("Disconnected.");
+        await event.send("Disconnected.");
     }
 }
 exports.default = Disconnect;

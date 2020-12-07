@@ -1,4 +1,4 @@
-import { string, base, array, object, number, objectArray, boolean } from "~/ConfigHandler";
+import {string, base, array, object, number, objectArray, boolean} from "~/ConfigHandler";
 
 export default {
     token: string(""),
@@ -17,4 +17,4 @@ export default {
         host: string("localhost"),
         port: number(2333)
     })
-}
+};

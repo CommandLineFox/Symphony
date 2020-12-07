@@ -19,7 +19,7 @@ export default abstract class Command implements CommandOptions {
     readonly guildOnly?: boolean;
     readonly ownerOnly?: boolean;
     protected constructor(options: CommandOptions);
-    execute(event: CommandEvent): void;
+    execute(event: CommandEvent): Promise<void>;
     protected abstract run(event: CommandEvent): void;
 }
 export {};

@@ -1,7 +1,7 @@
 import SymphonyClient from "../SymphonyClient";
 export default class CommandHandler {
     private readonly client;
-    private mentions;
+    private readonly mentions;
     constructor(client: SymphonyClient);
     private handleMessage;
     private handlePrefix;
