@@ -18,9 +18,9 @@ class Queue extends Command_1.default {
         }
         let content = "";
         if (queue.length !== 0) {
-            queue.forEach((track) => {
+            for (const track of queue) {
                 content += `${track.info.title}\n`;
-            });
+            }
         }
         else {
             content = "Queue is empty.";

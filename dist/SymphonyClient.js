@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const CommandHandler_1 = require("./command/CommandHandler");
 const PlayerManager_1 = require("./PlayerManager");
-class SymphonyClient extends discord_js_1.Client {
+class BotClient extends discord_js_1.Client {
     constructor(config, database, options) {
         super(options);
         this.config = config;
@@ -23,5 +23,5 @@ class SymphonyClient extends discord_js_1.Client {
         return this.config.prefix;
     }
 }
-exports.default = SymphonyClient;
-//# sourceMappingURL=SymphonyClient.js.map
+exports.default = BotClient;
+//# sourceMappingURL=BotClient.js.map

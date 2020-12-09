@@ -2,9 +2,9 @@ import Command from "@command/Command";
 import {Music} from "~/Groups";
 import CommandEvent from "@command/CommandEvent";
 
-export default class Skip extends Command {
+export default class Disconnect extends Command {
     public constructor() {
-        super({name: "skip", triggers: ["skip", "s", "next"], group: Music});
+        super({name: "Remove", triggers: ["remove", "rm"], group: Music});
     }
 
     public async run(event: CommandEvent): Promise<void> {
@@ -14,7 +14,5 @@ export default class Skip extends Command {
         if (!await client.playerManager.voiceChannelCheck(event, member)) {
             return;
         }
-
-        await client.playerManager.skip(event);
     }
 }

@@ -5,7 +5,7 @@ import CommandHandler from "@command/CommandHandler";
 import {Database} from "@database/Database";
 import PlayerManager from "~/PlayerManager";
 
-export default class SymphonyClient extends Client {
+export default class BotClient extends Client {
     public readonly config: FunctionResult<typeof ConfigTemplate>;
     public readonly database: Database;
     public readonly playerManager: PlayerManager;

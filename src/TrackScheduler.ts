@@ -3,10 +3,6 @@ import {ShoukakuTrack} from "shoukaku";
 export default class TrackScheduler {
     private readonly queues: Map<string, ShoukakuTrack[]> = new Map();
 
-    public constructor() {
-
-    }
-
     public getQueue(guildId: string): ShoukakuTrack[] {
         return this.queues.get(guildId) ?? [];
     }
@@ -24,8 +20,9 @@ export default class TrackScheduler {
     }
 
     public removeSong(queue: ShoukakuTrack[], index: number): ShoukakuTrack[];
-    public removeSong(guildId: string, index: number): boolean;
+    public removeSong(guildId: string, indexOrSong: number): boolean;
     public removeSong(queue: ShoukakuTrack[], song: ShoukakuTrack): ShoukakuTrack[] | null;
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
     public removeSong(guildId: string, song: ShoukakuTrack): boolean;
     public removeSong(queueOrGuildId: string | ShoukakuTrack[], indexOrSong: number | ShoukakuTrack): boolean | ShoukakuTrack[] | null {
         if (typeof queueOrGuildId === "string") {

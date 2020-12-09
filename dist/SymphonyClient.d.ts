@@ -3,7 +3,7 @@ import ConfigTemplate from "./Config";
 import { FunctionResult } from "./ConfigHandler";
 import { Database } from "./database/Database";
 import PlayerManager from "./PlayerManager";
-export default class SymphonyClient extends Client {
+export default class BotClient extends Client {
     readonly config: FunctionResult<typeof ConfigTemplate>;
     readonly database: Database;
     readonly playerManager: PlayerManager;

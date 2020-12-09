@@ -1,9 +1,9 @@
 import {Message, StringResolvable, MessageOptions, TextChannel, DMChannel, User, Guild, GuildMember, NewsChannel, MessageEmbed} from "discord.js";
-import SymphonyClient from "~/SymphonyClient";
+import BotClient from "~/BotClient";
 
 export default class CommandEvent {
     public readonly message: Message;
-    public readonly client: SymphonyClient;
+    public readonly client: BotClient;
     public readonly author: User;
     public readonly argument: string;
     public readonly channel: TextChannel | DMChannel | NewsChannel;
@@ -12,7 +12,7 @@ export default class CommandEvent {
     public readonly guild: Guild;
     public readonly member: GuildMember;
 
-    public constructor(message: Message, client: SymphonyClient, argument: string) {
+    public constructor(message: Message, client: BotClient, argument: string) {
         this.message = message;
         this.client = client;
         this.author = message.author;

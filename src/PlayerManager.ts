@@ -1,7 +1,7 @@
-import {Client, TextChannel, VoiceChannel, GuildMember} from "discord.js";
+import { Client, TextChannel, VoiceChannel, GuildMember } from "discord.js";
 import ConfigTemplate from "~/Config";
-import {FunctionResult} from "~/ConfigHandler";
-import {Shoukaku, ShoukakuPlayer, ShoukakuNodeOptions, ShoukakuTrackList, Source} from "shoukaku";
+import { FunctionResult } from "~/ConfigHandler";
+import { Shoukaku, ShoukakuPlayer, ShoukakuNodeOptions, ShoukakuTrackList, Source } from "shoukaku";
 import TrackScheduler from "~/TrackScheduler";
 import CommandEvent from "./command/CommandEvent";
 
@@ -57,7 +57,11 @@ export default class PlayerManager {
             voiceChannelID: voiceChannel!.id
         });
 
-        player.on("end", () => {
+        player.on("end", (reason) => {
+            if (reason.reason === "STOPPED" || reason.reason === "REPLACED") {
+                return;
+            }
+
             const song = this.trackScheduler.nextSong(guildId);
 
             if (!song) {
@@ -122,7 +126,7 @@ export default class PlayerManager {
             return;
         }
 
-        await player.stopTrack();
+        await player.playTrack(track, { noReplace: false });
         await event.send("Skipped!");
     }
 

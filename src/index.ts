@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import configTemplate from "~/Config";
 import {generateConfig, getConfig} from "~/ConfigHandler";
-import SymphonyClient from "~/SymphonyClient";
+import BotClient from "~/BotClient";
 import {Database} from "@database/Database";
 
 async function main(): Promise<void> {
@@ -24,7 +24,7 @@ async function main(): Promise<void> {
 
     const database = new Database(config.database);
     await database.connect();
-    const client = new SymphonyClient(config, database);
+    const client = new BotClient(config, database);
     await client.login(config.token);
 
     client.on("ready", () => {

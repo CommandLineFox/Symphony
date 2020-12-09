@@ -1,13 +1,13 @@
-import SymphonyClient from "~/SymphonyClient";
+import BotClient from "~/BotClient";
 import CommandRegistry from "@command/CommandRegistry";
 import {Message} from "discord.js";
 import CommandEvent from "@command/CommandEvent";
 
 export default class CommandHandler {
-    private readonly client: SymphonyClient;
+    private readonly client: BotClient;
     private readonly mentions: string[];
 
-    public constructor(client: SymphonyClient) {
+    public constructor(client: BotClient) {
         this.client = client;
         this.mentions = [`<@${this.client.user!.id}>`, `<@!${this.client.user!.id}>`];
         client.on("message", async (message) => {

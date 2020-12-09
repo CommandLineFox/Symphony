@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const Config_1 = require("./Config");
 const ConfigHandler_1 = require("./ConfigHandler");
-const SymphonyClient_1 = require("./SymphonyClient");
+const BotClient_1 = require("./BotClient");
 const Database_1 = require("./database/Database");
 async function main() {
     const configFile = "config.json";
@@ -21,7 +21,7 @@ async function main() {
     }
     const database = new Database_1.Database(config.database);
     await database.connect();
-    const client = new SymphonyClient_1.default(config, database);
+    const client = new BotClient_1.default(config, database);
     await client.login(config.token);
     client.on("ready", () => {
         console.log(`Logged in as ${client.user.tag}`);

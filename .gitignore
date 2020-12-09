@@ -1,5 +1,4 @@
 config.json
-application.yml
 
 # Created by https://www.gitignore.io/api/node,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=node,visualstudiocode
@@ -94,8 +93,14 @@ public/
 # FuseBox cache
 .fusebox/
 
+# Dist 
+dist/
+
 # DynamoDB Local files
 .dynamodb/
+
+### IntelliJ IDEA ###
+.idea/*
 
 ### VisualStudioCode ###
 .vscode/*

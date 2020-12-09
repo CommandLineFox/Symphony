@@ -1,8 +1,8 @@
-import SymphonyClient from "../SymphonyClient";
+import BotClient from "../BotClient";
 export default class CommandHandler {
     private readonly client;
     private readonly mentions;
-    constructor(client: SymphonyClient);
+    constructor(client: BotClient);
     private handleMessage;
     private handlePrefix;
     private handleMention;

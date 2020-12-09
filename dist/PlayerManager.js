@@ -46,7 +46,10 @@ class PlayerManager {
             guildID: guildId,
             voiceChannelID: voiceChannel.id
         });
-        player.on("end", () => {
+        player.on("end", (reason) => {
+            if (reason.reason === "STOPPED" || reason.reason === "REPLACED") {
+                return;
+            }
             const song = this.trackScheduler.nextSong(guildId);
             if (!song) {
                 return;
@@ -100,7 +103,7 @@ class PlayerManager {
             await player.stopTrack();
             return;
         }
-        await player.stopTrack();
+        await player.playTrack(track, { noReplace: false });
         await event.send("Skipped!");
     }
     async resume(event) {
